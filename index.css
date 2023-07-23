@@ -1,0 +1,176 @@
+:root{
+    --fontSize: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    --weight: 600;
+}
+
+body {
+    margin: 64px 64px 64px 64px;
+}
+
+p{
+    font-family: var(--fontSize);
+    font-weight: var(--weight);
+}
+
+#topHome {
+    display: flex;
+    margin-bottom: 0.2rem;
+}
+
+#img {
+    position: relative;
+}
+
+#picOverlay {
+    position: absolute;
+    opacity: 15%;
+}
+
+#title {
+    margin: auto;
+}
+
+#topSeperate{
+    width: calc(100% - 20%);
+    background: linear-gradient(to bottom, #3ABDF0 70%, #1F56E4);
+    height: 0.5rem;
+    border-radius: 0.5rem;
+}
+
+/* biographyCss */
+
+#biography {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+#biographyPara {
+    max-width: 50%;
+    max-height: 50%;
+    margin: 2rem auto 3rem auto;
+}
+
+/* spinner section css */
+
+#spinnerText{
+    display: flex;
+    gap: 5rem;
+    margin-bottom: 3rem;
+}
+
+#spinnerHr {
+    margin: 0;
+    width: calc(0.2%);
+    background: linear-gradient(to bottom, #3ABDF0 70%, #1F56E4);
+    border-radius: 0.5rem;
+}
+
+#surpriseQuote {
+    margin-left: calc(10%);
+
+}
+
+/* spinning wheel css */
+
+#spinningWheelDiv {
+    margin-bottom: 0;
+    position: relative;
+}
+#spinningWheel {
+    margin-left: calc(30%);
+}
+
+#redrawCircle {
+    background-color: #EFF256;
+    position: absolute;
+    top: 50%;
+    border: 3x solid yellow;
+    border-radius: 5rem;
+}
+
+/* topics page css  */
+
+/* overlay topic effect */
+#mainImgCon {
+    margin-bottom: 5%;
+    position: relative;
+    top: 0;
+    left: 0;
+}
+#topicWall {
+    position: relative;
+    width: 100%;
+    height: 50%;
+    top: 0;
+    left: 0;
+    border: 1px red solid;
+}
+
+#topicOverlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 74%;
+}
+#topicTitle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 3rem;
+}
+
+#backToWheel {
+    position: absolute;
+    color: blue;
+    text-decoration: underline;
+    top: 60%;
+    left: 50%;
+    font-size: 2rem;
+} 
+
+/* topic card css */
+
+#titleDesc {
+    display: flex;
+    flex-direction: column;
+    height: 20%;
+    width: 65%;
+}
+
+#fullCard {
+    width: 20%;
+    gap: 5%;
+    display: flex;
+}
+
+#additional {
+    margin-top: 10%;
+    display: flex;
+    gap: 0.4rem;
+    width: 30% ;
+}
+
+
+[id^="additionalBtn"] {
+    height: fit-content;
+    margin-top: 10%;
+    background-color: #EFF256;
+    border: 3x solid yellow;
+    border-radius: 5rem;
+
+}
+
+#additionalHr {
+    width: 3%;
+    background: linear-gradient(to bottom, #3ABDF0 70%, #1F56E4);
+    height: 10%;
+    border-radius: 0.5rem;
+}
+
+.topicCardContainer {
+    display: flex;
+    gap: 2rem;
+}

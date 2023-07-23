@@ -1,0 +1,73 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="./index.css">
+    <script src="./data/data.js"></script>
+</head>
+<body>
+    <div id="fullBioPage">
+        <!-- biogaphy page  -->
+        <div id = 'topHome'>
+          <img id="anas" width="100px" height="100px" src="./images/photo.jpeg" alt="My Photo">
+          <img id="picOverlay" width="100px" height="100px" src="./images/gray.webp">
+          <h1 id="title">Anas Portfolio</h1>
+        </div>  
+        <div id="biography">
+          <hr id="topSeperate">
+            <p id="biographyPara">
+                I am a keen software engineer. 
+                Enthusiastic about all kinds of
+                technological advancement with a special 
+                interest in Artificial Intelligence
+                applicability to various industries. 
+                Determined to direct projects to success 
+                with an ecstasy for resolving brain 
+                stimulating challenges. A seeker for 
+                everlasting education and new skills.
+            </p>
+        </div>
+        <div id="spinnerText">
+            <p id="surpriseQuote">"Life Is Full Of Surprises"</p>
+            <hr id="spinnerHr">
+            <p id="surpriseKnow">Know More About Me</p>
+        </div>
+        <div id="spinningWheelDiv">
+            <canvas  height="240px" width="320px" id="spinningWheel"></canvas>
+            <button id = 'redrawCircle'>Redraw</button>
+        <div>
+    </div>
+    <!-- topics page -->
+    <template id="topicPageTitleTemp">
+    <div id="mainImgCon">
+        <img id="topicWall">
+        <img id="topicOverlay" src="./images/white.avif">
+        <h1>
+            <strong>
+                <em id="topicTitle">
+                </em>
+            </strong>
+            <br>
+            <a id="backToWheel">Back</a>
+        </h1>
+    </div>
+    </template>
+    <template id="topicPageCardTemp">
+        <div id="fullCard" class="topicCardCon">
+            <div id="titleDesc">
+                <h3 id="cardTopicTitle"></h3>
+                <p id="cardTopicDesc"></p>
+            </div>
+            <div id="additional">
+                <hr id="additionalHr">
+                <button id="additionalBtn">Additional</button>
+            </div>
+        </div>
+    </template>
+
+
+    <!-- script -->
+    <script src="./index.js"></script>
+</body>
+</html>
