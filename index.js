@@ -132,7 +132,7 @@ class Circle {
              setTimeout(() => {
                 this.removeSegment(ctx, stopping, w, h, circle)
                 counterSpin = 0
-            }, 1000 * 5)
+            }, 1000 * 2)
             return
         }
         // if we are animating i.e., request animation frame
@@ -247,55 +247,53 @@ function prepareTemplate(title) {
     // then append the top area to the body
     // and place each card of each topic segment to 
     // the container created above allCardsCon
-    if (title === 'Books') {
-        data = dataFile.booksData;
-        clon.getElementById('topicWall').src = "./images/Topics wallpapers/books.png"
-        clon.getElementById('topicTitle').textContent = "Books"
-        document.body.appendChild(clon)
-        document.body.appendChild(allCardsCon)
-        for (let i = 0; i < data.length - 1; i++) {
-            const templateCard = document.getElementById('topicPageCardTemp');
-            const cardClone = templateCard.content.cloneNode(true);
-            cardClone.getElementById('cardTopicTitle').textContent = data[i].book;
-            cardClone.getElementById('cardTopicDesc').textContent = data[i].text;
-            cardClone.getElementById('additionalBtn').id = cardClone.getElementById('additionalBtn').id + `books${data[0].book}`;
-            allCardsCon.appendChild(cardClone)
-        }
-    }
-    if (title === 'Hobbies') {
-        data = dataFile.hobbiesData
-        clon.getElementById('topicWall').src = "./images/Topics wallpapers/hobbies.png"
-        clon.getElementById('topicTitle').textContent = "Hobbies"
-        document.body.appendChild(clon)
-        document.body.appendChild(allCardsCon)
-        for (let i = 0; i < data.length - 1; i++) {
-            const templateCard = document.getElementById('topicPageCardTemp');
-            const cardClone = templateCard.content.cloneNode(true);
-            cardClone.getElementById('cardTopicTitle').textContent = data[i].hobby;
-            cardClone.getElementById('cardTopicDesc').textContent = data[i].text;
-            cardClone.getElementById('additionalBtn').id = cardClone.getElementById('additionalBtn').id + `hobbies${data[0].hobby}`;
-            allCardsCon.appendChild(cardClone)
-
-        }
-    }
-    if (title === 'Movies') {
-        data = dataFile.moviesData
-        clon.getElementById('topicWall').src = "./images/Topics wallpapers/movies.png"
-        clon.getElementById('topicTitle').textContent = "Movies"
-        document.body.appendChild(clon)
-        document.body.appendChild(allCardsCon)
-        for (let i = 0; i < data.length - 1; i++) {
-            const templateCard = document.getElementById('topicPageCardTemp');
-            const cardClone = templateCard.content.cloneNode(true);
-            cardClone.getElementById('cardTopicTitle').textContent = data[i].movie;
-            cardClone.getElementById('cardTopicDesc').textContent = data[i].text;
-            cardClone.getElementById('additionalBtn').id = cardClone.getElementById('additionalBtn').id + `movies${data[0].movie}`;
-            allCardsCon.appendChild(cardClone)
-        }
-    }
+    data = dataFile[`${title.toLowerCase()}Data`];
+    clon.getElementById('topicWall').src = `./images/Topics wallpapers/${title.toLowerCase()}.png`
+    clon.getElementById('topicTitle').textContent = title
+    document.body.appendChild(clon)
+    document.body.appendChild(allCardsCon)
+    animatedDataCards(data, allCardsCon)
     // make the home page dissapeara and add the event tp bring it back on clicking on the back button
     document.getElementById('backToWheel').addEventListener('click', () => returnWheel())
     document.getElementById('fullBioPage').style.display = 'none'
+}
+
+
+let done = false;
+let count = 100;
+
+function animatedDataCards(data, allCardsCon) {
+    data.forEach((element) => {
+        console.log('should be printed 5 times')
+        requestAnimationFrame(() => {
+           generateDataCards(element, allCardsCon)
+        })
+    });
+}
+
+function generateDataCards(element, allCardsCon) {
+    console.log('next start', count, element, done)
+    // for each card requestanimation frame
+    if (done === true) {
+        done = false
+        return
+      }
+      // only display card once
+    if (count === 50) {
+        const dataType = element[Object.keys(element)[0]];
+        const templateCard = document.getElementById('topicPageCardTemp');
+        const cardClone = templateCard.content.cloneNode(true);
+        cardClone.getElementById('cardTopicTitle').textContent = dataType;
+        cardClone.getElementById('cardTopicDesc').textContent = element.text;
+        cardClone.getElementById('additionalBtn').id = cardClone.getElementById('additionalBtn').id + `data${dataType}`;
+        allCardsCon.appendChild(cardClone) 
+    }
+    // to do the next card
+    if (count === 0) {
+        done = true;
+        count = 50;
+    } else count--
+    requestAnimationFrame(() => generateDataCards(element, allCardsCon))
 }
 
 // function to bring the home page back and clean the topic page resources
