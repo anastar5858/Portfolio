@@ -90,7 +90,6 @@ class Circle {
     removeSegment(ctx, stopping, w, h, circle) {
         // the stopping point
         const stopInRads = stopping * (Math.PI / 180)
-        let segmentAngle = 360 / colorMsg.length;
         // get the x and y coordinate of the stopping angle of the spinner
         // this is used to find the color at that point
         const x = (w / 2) + (circle.r / 1.5) * Math.cos(stopInRads);
@@ -117,6 +116,7 @@ class Circle {
         // if all segments have been removed reinitialise the process
         if (colorMsg.length === 0) {
             colorMsg = [...removedSegments];
+            removedSegments = [];
             this.drawCircle(ctx)
             this.drawSpinner(ctx)
         }
