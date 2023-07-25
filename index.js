@@ -227,6 +227,17 @@ function startDrawing() {
     // grab the redraw button and add the click event to redraw the circle upon user request
     const redrawBtn = document.getElementById('redrawCircle');
     redrawBtn.addEventListener('click', (e) => redrawDefault(ctx, circle, canvas.width, canvas.height))
+    // fix the photos problem of height
+    const photoDiv = document.getElementById('photoSec');
+    const childElements = photoDiv.querySelectorAll('p, img');
+    console.log('childre', childElements)
+
+    let maxChildHeight = 0;
+    childElements.forEach((element) => {
+    maxChildHeight+=element.offsetHeight;
+    });
+
+    photoDiv.style.height = `${maxChildHeight}px`;
 }
 
 startDrawing()

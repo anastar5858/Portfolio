@@ -8,7 +8,6 @@ html {
 }
 
 body {
-    position: relative;
     margin: 0 32px;
     background: #F9F6EE;
 }
@@ -62,7 +61,8 @@ p{
 
 #spinnerText{
     display: flex;
-    gap: 5rem;
+    gap: 2rem;
+    margin-left: 5vw;
     margin-bottom: 3rem;
 }
 
@@ -98,34 +98,30 @@ p{
 
 /* hackerMask css */
 
-/* #fullBioPage {
-    position: relative;
-} */
-
-#hackerMask {
+#photoSec {
     position: absolute;
-    top: 50%;
-    left: 100%;
-    transform: translate(-150%, 0%);
+    top: 200;
+    right: 100;
+}
+#hackerMask {
+    position: relative;
 }
 
 #unfoldText {
-    position: absolute;
-    top: 50%;
-    left: 100%;
-    transform: translate(-150%, 0%);
-    float: right;
+    position: relative;
 }
 
+/* picture on top of each other */
 #hackMask {
     position: relative;
+    z-index: 1;
 }
 
 #anas {
     position: absolute;
     top: 0;
     left: 0;
-    z-index: -1;
+    z-index: 0;
 }
 
 
@@ -184,8 +180,10 @@ p{
 
 #fullCard {
     width: 20%;
+    max-height: 50%;
     gap: 5%;
     display: flex;
+
 }
 
 #additional {
