@@ -259,12 +259,12 @@ function prepareTemplate(title) {
 }
 
 
-let done = false;
-let count = 100;
 
+let done = false;
+let count = 50;
 function animatedDataCards(data, allCardsCon) {
     data.forEach((element) => {
-        console.log('should be printed 5 times')
+        // console.log('should be printed 5 times', element)
         requestAnimationFrame(() => {
            generateDataCards(element, allCardsCon)
         })
@@ -272,21 +272,22 @@ function animatedDataCards(data, allCardsCon) {
 }
 
 function generateDataCards(element, allCardsCon) {
-    console.log('next start', count, element, done)
+    // console.log('next start', count, element, done)
     // for each card requestanimation frame
-    if (done === true) {
-        done = false
-        return
-      }
+    // if (done === true) {
+    //     return
+    //   }
       // only display card once
-    if (count === 50) {
-        const dataType = element[Object.keys(element)[0]];
-        const templateCard = document.getElementById('topicPageCardTemp');
-        const cardClone = templateCard.content.cloneNode(true);
-        cardClone.getElementById('cardTopicTitle').textContent = dataType;
-        cardClone.getElementById('cardTopicDesc').textContent = element.text;
-        cardClone.getElementById('additionalBtn').id = cardClone.getElementById('additionalBtn').id + `data${dataType}`;
-        allCardsCon.appendChild(cardClone) 
+    if (count === 50 && done === true) {
+            const dataType = element[Object.keys(element)[0]];
+            const templateCard = document.getElementById('topicPageCardTemp');
+            const cardClone = templateCard.content.cloneNode(true);
+            cardClone.getElementById('cardTopicTitle').textContent = dataType;
+            cardClone.getElementById('cardTopicDesc').textContent = element.text;
+            cardClone.getElementById('additionalBtn').id = cardClone.getElementById('additionalBtn').id + `data${dataType}`;
+            allCardsCon.appendChild(cardClone) 
+            done = false 
+            return  
     }
     // to do the next card
     if (count === 0) {
@@ -295,6 +296,42 @@ function generateDataCards(element, allCardsCon) {
     } else count--
     requestAnimationFrame(() => generateDataCards(element, allCardsCon))
 }
+
+
+// functions for unfolding the mask
+const maskImage = document.getElementById('hackMask');
+let opacity = 1;
+let requestId;
+
+function decreaseOpacity() {
+  opacity -= 0.01;
+  if (opacity < 0) {
+    opacity = 0;
+    cancelAnimationFrame(requestId);
+  } else {
+    maskImage.style.opacity = opacity;
+    requestId = requestAnimationFrame(decreaseOpacity);
+  }
+}
+
+function increaseOpacity() {
+  opacity += 0.01;
+  if (opacity > 1) {
+    opacity = 1;
+    cancelAnimationFrame(requestId);
+  } else {
+    maskImage.style.opacity = opacity;
+    requestId = requestAnimationFrame(increaseOpacity);
+  }
+}
+
+maskImage.addEventListener('mouseover', () => {
+  requestId = requestAnimationFrame(decreaseOpacity);
+});
+
+maskImage.addEventListener('mouseout', () => {
+  requestId = requestAnimationFrame(increaseOpacity);
+});
 
 // function to bring the home page back and clean the topic page resources
 function returnWheel() {

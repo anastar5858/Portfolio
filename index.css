@@ -3,9 +3,17 @@
     --weight: 600;
 }
 
-body {
-    margin: 0 64px 0 64px;
+html {
+    background: white;
 }
+
+body {
+    position: relative;
+    margin: 0 32px;
+    background: #F9F6EE;
+    height: fit-content;
+}
+
 
 p{
     font-family: var(--fontSize);
@@ -89,6 +97,39 @@ p{
     border-radius: 5rem;
 }
 
+/* hackerMask css */
+
+#fullBioPage {
+    position: relative;
+}
+#hackerMask {
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    transform: translate(-150%, 0%);
+}
+
+#unfoldText {
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    transform: translate(-150%, 0%);
+    float: right;
+}
+
+#hackMask {
+    position: relative;
+}
+
+#anas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+
+
 /* topics page css  */
 
 /* overlay topic effect */
@@ -130,6 +171,8 @@ p{
     font-size: 1rem;
 } 
 
+
+
 /* topic card css */
 
 #titleDesc {
@@ -159,7 +202,14 @@ p{
     background-color: #EFF256;
     border: 3x solid yellow;
     border-radius: 5rem;
+    z-index: 1;
 
+}
+
+[id^="additionalBtn"]:hover {
+    opacity: 85%;
+    background-color: gold;
+    z-index: 2;
 }
 
 #additionalHr {
@@ -174,3 +224,26 @@ p{
     flex-wrap: wrap;
     gap: 5rem;
 }
+
+
+.topicCardCon {
+    position: relative;
+    width: 100%;
+    height: auto;
+  }
+
+  .topicCardCon::before {
+    content: "";
+    position: absolute;
+    inset: -5px;
+    background-image: linear-gradient(-180deg, rgba(255,255,255,0.50) 0%, rgba(0,0,0,0.50) 100%);
+    box-shadow: 5px 10px violet;
+    opacity: 20%;
+    filter: blur(10px);
+    z-index: 0;
+  }
+
+  .topicCardCon:hover::before {
+    opacity: 40%;
+  }
+  
