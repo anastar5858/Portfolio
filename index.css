@@ -244,4 +244,46 @@ p{
   .topicCardCon:hover::before {
     opacity: 40%;
   }
+
+
+  /* additional content page */
+
+  /* grid areas */
+  #statusTopRight {
+    grid-area: status;
+  }
+
+  #content {
+    grid-area: content;
+  }
+  #arrowPrev {
+    grid-area: prev;
+  }
+
+  #arrowNext {
+    grid-area: next;
+  }
+
+  #midBottom {
+    grid-area: disposal;
+  }
+
+  /* grid */
+  #animationGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas: 
+    ". . status"
+    "prev content next"
+    ". disposal .";
+    justify-items: center;
+    align-items: center;
+  }
+
+  #statusDots {
+    display: block;
+  }
+
+ 
   

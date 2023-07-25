@@ -241,7 +241,13 @@ function startDrawing() {
 }
 
 startDrawing()
-// topic title page function --->
+
+
+
+// topic title page function ---------------------------->
+
+
+
 // the function repsonsible for bringing the initial topic details
 function prepareTemplate(title) {
     // get the top template (the picture and h1 and back button)
@@ -361,4 +367,142 @@ function returnWheel() {
     }
     // bring the wheel home component back
     document.getElementById('fullBioPage').style.display = 'block'
+}
+
+
+
+
+// additional content page functions ---------------------------->
+
+document.getElementById('prevArrow').addEventListener('click', (e) => prevAnimate(e));
+document.getElementById('nextArrow').addEventListener('click', (e) => nextAnimate(e));
+
+
+// next arrow animation functions (hard level)
+// requires understanding of asynchronous calls promises and frames
+async function nextAnimate(e) {
+    // ** step one get the folder icon
+    const folderIcon = document.getElementById('folderIcon');
+    // ** step two alter the div of content to be smaller thant the folder icon
+    // do it by animation get smaller and smaller (asynchronously)
+    const folderIconWidth = folderIcon.width;
+    const folderIconHeight = folderIcon.height;
+    const contentDiv = document.getElementById('content');
+    // const disposalAnimationShrink = await shrinkDiv(contentDiv, folderIconWidth / 2,
+    //  folderIconHeight / 2, folderIcon, true, 0);
+    // const disposalAnimationShrink = await shrinkDiv(contentDiv, folderIconWidth / 2,
+    // folderIconHeight / 2, folderIcon, true, 0);
+    // if (disposalAnimationShrink) {
+    //     // ** step three bring it into the file and remove it from the body
+    //     console.log('scale done')
+    //     archiveData(contentDiv, folderIcon)
+    // }
+    nextContentAnimationInit();
+}
+
+
+// archive animation function 
+function archiveData(content, folder) {
+    content.style.position = 'absolute';
+    // get the position of the mid point of the folder image
+    const imgHeight = folder.offsetHeight;
+    const imgTop = folder.offsetTop;
+    const midpointY = imgTop + imgHeight / 2;
+    console.log(midpointY)
+    // bring the div to the midpoint
+    const startTop = content.offsetTop;
+    const distanceY = midpointY - startTop - content.offsetHeight / 2;
+    // the bigger the divisor the slower the animation
+    // need to adjust count as well
+    const divisor = 100
+    const stepY = distanceY / divisor;
+    let count = 0;
+    function step() {
+        count++;
+        if (count <= divisor) {
+        content.style.top = startTop + stepY * count + 'px';
+        requestAnimationFrame(step);
+        } else {
+            setTimeout(() => {
+                document.getElementById('animationGrid').removeChild(content)
+                nextContentAnimationInit()
+            }, 1000 * 1)
+        }
+    }
+  requestAnimationFrame(step);
+}
+
+
+function nextContentAnimationInit() {
+    // step one get the factory image location
+    const factory = document.getElementById('factoryIcon');
+    const factoryTop = factory.offsetTop;
+    const factoryHeight = factory.offsetHeight;
+    const factoryBottom = factoryTop + factoryHeight;
+    const factoryWidth = factory.offsetWidth;
+    const factorRightMid = factoryTop + factoryWidth / 2
+    // applied to bottom
+    const factoryBottomMidY = factoryBottom + factorRightMid;
+    // appplied to left
+    const factoryBottomMidX = factorRightMid + factoryHeight;
+    // creat new content at this position
+    console.log('factory', factory, factoryBottomMidY, factoryBottomMidX);
+}
+
+// shrinking animation function
+function shrinkDiv(content, width, height, folderIcon, scaleCalc, targetScale, resolve, scaleCount) {
+    if (resolve === undefined) {
+        return new Promise((resolve) => {
+            const currentWidth = content.offsetWidth;
+            const currentHeight = content.offsetHeight;
+            if (currentWidth <= width && currentHeight <= height) {
+                console.log('animation complete')
+                resolve(true);
+                return
+            }
+            if (currentWidth > width ) {
+                content.style.width = currentWidth - 1 + 'px';
+            }
+            if (currentHeight > height) {
+                content.style.height = currentHeight - 1 + 'px';
+            }
+            if (scaleCalc) {
+                targetScale = Math.min(width / content.offsetWidth, height / content.offsetHeight);
+                scaleCalc = !scaleCalc
+            }
+            requestAnimationFrame(() => shrinkDiv(content, width, height, folderIcon, scaleCalc, targetScale, resolve, 1));      
+        })
+    } else {
+        // scalling is calculated in this code block
+        // necessary repetition because we want to return
+        // the promise of only the first call initiated
+        // by the await in the prevAnimate function
+        // issue from using request animation frame with another await function
+            const currentWidth = content.offsetWidth;
+            const currentHeight = content.offsetHeight;
+            if ((currentWidth <= width && currentHeight <= height) && scaleCount < targetScale) {
+                resolve(true);
+                return
+            }
+            if (currentWidth > width ) {
+                content.style.width = currentWidth - 1 + 'px';
+            }
+            if (currentHeight > height) {
+                content.style.height = currentHeight - 1 + 'px';
+            }
+            if (scaleCalc) {
+                targetScale = Math.min(width / content.offsetWidth, height / content.offsetHeight);
+                scaleCalc = !scaleCalc
+            }
+            scaleCount = scaleCount - 0.003
+            content.style.transform = `scale(${scaleCount})`;
+            requestAnimationFrame(() => shrinkDiv(content, width, height, folderIcon, scaleCalc, targetScale, resolve, scaleCount));            
+    }
+}
+
+
+// prev arrow animation function
+
+function prevAnimate(e) {
+    console.log('working PREV')
 }
