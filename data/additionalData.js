@@ -117,7 +117,7 @@ const Movies = [
         }, {
             movie: 'The Conjuring',
             rationale: 'Taking the best of the classical masterpieces and resurrecting the contemporary version of the genre.',
-            src: './images/AddImg/additionalContentImages/Movies/Con.jpg',
+            src: './images/AddImg/additionalContentImages/Movies/Conjuring.jpg',
 
         }
     ]
