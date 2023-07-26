@@ -389,8 +389,6 @@ async function nextAnimate(e) {
     const folderIconHeight = folderIcon.height;
     const contentDiv = document.getElementById('content');
     // const disposalAnimationShrink = await shrinkDiv(contentDiv, folderIconWidth / 2,
-    //  folderIconHeight / 2, folderIcon, true, 0);
-    // const disposalAnimationShrink = await shrinkDiv(contentDiv, folderIconWidth / 2,
     // folderIconHeight / 2, folderIcon, true, 0);
     // if (disposalAnimationShrink) {
     //     // ** step three bring it into the file and remove it from the body
@@ -436,18 +434,37 @@ function archiveData(content, folder) {
 function nextContentAnimationInit() {
     // step one get the factory image location
     const factory = document.getElementById('factoryIcon');
-    const factoryTop = factory.offsetTop;
-    const factoryHeight = factory.offsetHeight;
-    const factoryBottom = factoryTop + factoryHeight;
-    const factoryWidth = factory.offsetWidth;
-    const factorRightMid = factoryTop + factoryWidth / 2
-    // applied to bottom
-    const factoryBottomMidY = factoryBottom + factorRightMid;
-    // appplied to left
-    const factoryBottomMidX = factorRightMid + factoryHeight;
+    const factoryRec = factory.getBoundingClientRect();
+    const factoryTopEdge = factoryRec.top;
+    const factoryLeftEdge = factoryRec.left;
+    const midY = factoryTopEdge + factory.offsetHeight;
+    const midX = factoryLeftEdge + factory.offsetWidth / 2;
+
+    // const test = document.createElement('p');
+    // test.textContent = 'anas is working';
+
+    console.log('what is the problem', midX);
+
     // creat new content at this position
-    console.log('factory', factory, factoryBottomMidY, factoryBottomMidX);
-}
+    const template = document.getElementById('contentCardTemp');
+    const clone = template.content.cloneNode(true);
+    const contentDiv = clone.getElementById('content');
+    // add the div to the grid
+    const grid = document.getElementById('animationGrid');
+    grid.appendChild(contentDiv)
+    contentDiv.style.position = 'absolute';
+    contentDiv.style.top = midY + window.scrollY + 'px';
+    contentDiv.style.left = midX + 'px';
+    // shrink the content div
+    // const targetScale = Math.min((factory.offsetWidth / 2) / contentDiv.offsetWidth, (factory.offsetHeight / 2) / contentDiv.offsetHeight);
+    // contentDiv.style.transform = `scale(${targetScale})`;
+    // position the content div at the bottom edge of the factory icon
+    // contentDiv.style.position = 'absolute';
+    // contentDiv.style.top = midY + contentDiv.offsetHeight / 2 + 'px';
+    // contentDiv.style.top = (factoryTopEdge - factoryTopEdge.offsetHeight) + 'px';
+    // contentDiv.style.left = midX - contentDiv.offsetWidth / 2 + 'px'
+    }
+    
 
 // shrinking animation function
 function shrinkDiv(content, width, height, folderIcon, scaleCalc, targetScale, resolve, scaleCount) {
