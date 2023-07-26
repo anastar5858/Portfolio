@@ -461,7 +461,25 @@ function nextContentAnimationInit() {
     contentDiv.style.left = scaledLeft + 'px';
     // shrink the content div
     contentDiv.style.transform = `scale(${targetScale})`;
-    // contentDiv.style.transformOrigin = 'center bottom';
+    // now lets move it to the empty space fisrt
+    // get the position relative to the document
+    const gridRect = grid.getBoundingClientRect();
+    const gridTop = gridRect.top;
+    const gridLeft = gridRect.left;
+    // remember 3 is automatic
+    const gridSegmentWidth = grid.clientWidth / 3;
+    const gridSegmentHeight = grid.clientHeight / 3
+    const midCellX = (gridLeft + (gridSegmentWidth * 2) / 2);
+    const midCellY = (gridTop + (gridSegmentHeight) / 2);
+    console.log('ummmmmm', midCellX, midCellY)
+    // testing element
+    // const test = document.createElement('p');
+    // test.textContent = 'hello there';
+    // test.style.position = 'absolute';
+    // test.style.placeSelf = 'center';
+    // grid.appendChild(test);
+    // test.style.top = midCellY + window.scrollY + 'px'
+    // test.style.left = midCellX + window.scrollX  + 100 + 'px'
 }
     
 
