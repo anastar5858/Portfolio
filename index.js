@@ -269,7 +269,7 @@ function prepareTemplate(title) {
     clon.getElementById('topicTitle').textContent = title
     document.body.appendChild(clon)
     document.body.appendChild(allCardsCon)
-    animatedDataCards(data, allCardsCon)
+    animatedDataCards(data, allCardsCon, title)
     // make the home page dissapeara and add the event tp bring it back on clicking on the back button
     document.getElementById('backToWheel').addEventListener('click', () => returnWheel())
     document.getElementById('fullBioPage').style.display = 'none'
@@ -279,16 +279,16 @@ function prepareTemplate(title) {
 
 let done = false;
 let count = 50;
-function animatedDataCards(data, allCardsCon) {
+function animatedDataCards(data, allCardsCon, title) {
     data.forEach((element) => {
         // console.log('should be printed 5 times', element)
         requestAnimationFrame(() => {
-           generateDataCards(element, allCardsCon)
+           generateDataCards(element, allCardsCon, title)
         })
     });
 }
 
-function generateDataCards(element, allCardsCon) {
+function generateDataCards(element, allCardsCon, title) {
     // console.log('next start', count, element, done)
     // for each card requestanimation frame
     // if (done === true) {
@@ -301,7 +301,7 @@ function generateDataCards(element, allCardsCon) {
             const cardClone = templateCard.content.cloneNode(true);
             cardClone.getElementById('cardTopicTitle').textContent = dataType;
             cardClone.getElementById('cardTopicDesc').textContent = element.text;
-            cardClone.getElementById('additionalBtn').id = cardClone.getElementById('additionalBtn').id + `data${dataType}`;
+            cardClone.getElementById('additionalBtn').id = cardClone.getElementById('additionalBtn').id + ` ${title}--*${dataType}`;
             allCardsCon.appendChild(cardClone) 
             done = false 
             return  
@@ -311,7 +311,7 @@ function generateDataCards(element, allCardsCon) {
         done = true;
         count = 50;
     } else count--
-    requestAnimationFrame(() => generateDataCards(element, allCardsCon))
+    requestAnimationFrame(() => generateDataCards(element, allCardsCon, title))
 }
 
 
@@ -388,14 +388,13 @@ async function nextAnimate(e) {
     const folderIconWidth = folderIcon.width;
     const folderIconHeight = folderIcon.height;
     const contentDiv = document.getElementById('content');
-    // const disposalAnimationShrink = await shrinkDiv(contentDiv, folderIconWidth / 2,
-    // folderIconHeight / 2, folderIcon, true, 0);
-    // if (disposalAnimationShrink) {
-    //     // ** step three bring it into the file and remove it from the body
-    //     console.log('scale done')
-    //     archiveData(contentDiv, folderIcon)
-    // }
-    nextContentAnimationInit();
+    const disposalAnimationShrink = await shrinkDiv(contentDiv, folderIconWidth / 2,
+    folderIconHeight / 2, folderIcon, true, 0);
+    if (disposalAnimationShrink) {
+        // ** step three bring it into the file and remove it from the body
+        console.log('scale done')
+        archiveData(contentDiv, folderIcon)
+    }
 }
 
 
@@ -464,23 +463,15 @@ function nextContentAnimationInit() {
     // now lets move it to the empty space fisrt
     // get the position relative to the document
     const gridRect = grid.getBoundingClientRect();
-    const gridTop = gridRect.top;
     const gridLeft = gridRect.left;
     // remember 3 is automatic
     const gridSegmentWidth = grid.clientWidth / 3;
-    const gridSegmentHeight = grid.clientHeight / 3
     const midCellX = (gridLeft + (gridSegmentWidth * 2) / 2);
-    const midCellY = (gridTop + (gridSegmentHeight) / 2);
-    // lets animate to the empty cell
-    // const animationY = midCellY + window.scrollY - scaledHeight;
-    // contentDiv.style.left = midCellX + window.scrollX + 100 + 'px'
-    // const animationX = midCellX + window.scrollX + gridSegmentWidth / 2 + test.offsetWidth / 2;
-    // contentDiv.style.left = midCellX + window.scrollX + gridSegmentWidth / 2 - scaledWidth + 'px'
     const startLeft = contentDiv.offsetLeft;
     const distanceX = (midCellX + window.scrollX);
-    console.log('ummmmmm',distanceX, startLeft )
-
-
+    // trial for mid cell point
+    const gridSegmentHeight = grid.clientHeight / 3;
+    const midYPoint = gridSegmentHeight / 0.5;
     // the bigger the divisor the slower the animation
     // need to adjust count as well
     const divisor = 100
@@ -492,15 +483,27 @@ function nextContentAnimationInit() {
         content.style.left = startLeft - stepY * count + 'px';
         requestAnimationFrame(step);
         } else {
-            // setTimeout(() => {
-            //     document.getElementById('animationGrid').removeChild(content)
-            //     nextContentAnimationInit()
-            // }, 1000 * 1)
+            setTimeout(() => {
+                const startTop = contentDiv.offsetTop;
+                const distanceY = midYPoint - startTop - contentDiv.offsetHeight / 2;
+                const divisor = 100
+                const stepY = distanceY / divisor;
+                let count = 0;
+                function step() {
+                    count++;
+                    if (count <= divisor) {
+                    contentDiv.style.top = startTop - stepY * count + 'px';
+                    requestAnimationFrame(step);
+                    } else {
+                        // scale it up and done
+                        requestAnimationFrame(() => scaleUp(contentDiv, 0.3))
+                    }
+                }
+              requestAnimationFrame(step);
+            }, 1000 * 1)
         }
     }
-    requestAnimationFrame(step);
-    // contentDiv.style.left = animationX + 'px'
-
+    requestAnimationFrame(step) ;
     // testing element
     // const test = document.createElement('p');
     // test.textContent = 'hello there';
@@ -510,6 +513,19 @@ function nextContentAnimationInit() {
     // test.style.left = animationX
 }
     
+
+function scaleUp(container, scaleFactor) {
+    console.log('ummm')
+    if (scaleFactor < 1) {
+        container.style.transform = `scale(${scaleFactor})`
+        scaleFactor+= 0.01;
+        requestAnimationFrame(() => scaleUp(container, scaleFactor))
+    } else {
+        document.getElementById('statusText').textContent = 'IDLE'
+    }
+}
+
+
 
 // shrinking animation function
 function shrinkDiv(content, width, height, folderIcon, scaleCalc, targetScale, resolve, scaleCount) {
