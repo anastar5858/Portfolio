@@ -437,13 +437,8 @@ function nextContentAnimationInit() {
     const factoryRec = factory.getBoundingClientRect();
     const factoryTopEdge = factoryRec.top;
     const factoryLeftEdge = factoryRec.left;
-    const midY = factoryTopEdge + factory.offsetHeight;
+    const midY = factoryTopEdge + factory.offsetHeight / 2;
     const midX = factoryLeftEdge + factory.offsetWidth / 2;
-
-    // const test = document.createElement('p');
-    // test.textContent = 'anas is working';
-
-    console.log('what is the problem', midX);
 
     // creat new content at this position
     const template = document.getElementById('contentCardTemp');
@@ -451,19 +446,24 @@ function nextContentAnimationInit() {
     const contentDiv = clone.getElementById('content');
     // add the div to the grid
     const grid = document.getElementById('animationGrid');
-    grid.appendChild(contentDiv)
+    grid.appendChild(contentDiv);
+    // position the content div at the center of the factory icon
+    const contentWidth = contentDiv.offsetWidth;
+    const contentHeight = contentDiv.offsetHeight;
+    const targetScale = Math.min((factory.offsetWidth / 2) / contentWidth, (factory.offsetHeight / 2) / contentHeight);
+    const scaledWidth = contentWidth * targetScale;
+    const scaledHeight = contentHeight * targetScale;
+    const scaledTop = midY + window.scrollY - scaledHeight;
+    const scaledLeft = midX + window.scrollX - scaledWidth;
     contentDiv.style.position = 'absolute';
-    contentDiv.style.top = midY + window.scrollY + 'px';
-    contentDiv.style.left = midX + 'px';
+    contentDiv.style.width = contentWidth + 'px';
+    contentDiv.style.height = contentHeight  + 'px';
+    contentDiv.style.top = scaledTop + 'px';
+    contentDiv.style.left = scaledLeft + 'px';
     // shrink the content div
-    // const targetScale = Math.min((factory.offsetWidth / 2) / contentDiv.offsetWidth, (factory.offsetHeight / 2) / contentDiv.offsetHeight);
-    // contentDiv.style.transform = `scale(${targetScale})`;
-    // position the content div at the bottom edge of the factory icon
-    // contentDiv.style.position = 'absolute';
-    // contentDiv.style.top = midY + contentDiv.offsetHeight / 2 + 'px';
-    // contentDiv.style.top = (factoryTopEdge - factoryTopEdge.offsetHeight) + 'px';
-    // contentDiv.style.left = midX - contentDiv.offsetWidth / 2 + 'px'
-    }
+    contentDiv.style.transform = `scale(${targetScale})`;
+    // contentDiv.style.transformOrigin = 'center bottom';
+}
     
 
 // shrinking animation function
