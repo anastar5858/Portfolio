@@ -254,6 +254,8 @@ p{
   }
 
   #content {
+    width: 200px;
+    height: 300px;
     grid-area: content;
   }
   #arrowPrev {

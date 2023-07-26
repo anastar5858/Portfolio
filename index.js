@@ -230,8 +230,6 @@ function startDrawing() {
     // fix the photos problem of height
     const photoDiv = document.getElementById('photoSec');
     const childElements = photoDiv.querySelectorAll('p, img');
-    console.log('childre', childElements)
-
     let maxChildHeight = 0;
     childElements.forEach((element) => {
     maxChildHeight+=element.offsetHeight;
@@ -302,6 +300,8 @@ function generateDataCards(element, allCardsCon, title) {
             cardClone.getElementById('cardTopicTitle').textContent = dataType;
             cardClone.getElementById('cardTopicDesc').textContent = element.text;
             cardClone.getElementById('additionalBtn').id = cardClone.getElementById('additionalBtn').id + ` ${title}--*${dataType}`;
+            // the link to additional content page
+            cardClone.getElementById(`additionalBtn ${title}--*${dataType}`).addEventListener('click', (e) => createInitialGrid(e));
             allCardsCon.appendChild(cardClone) 
             done = false 
             return  
@@ -374,13 +374,49 @@ function returnWheel() {
 
 // additional content page functions ---------------------------->
 
-document.getElementById('prevArrow').addEventListener('click', (e) => prevAnimate(e));
-document.getElementById('nextArrow').addEventListener('click', (e) => nextAnimate(e));
+let  additionalHandler = 0;
+function createInitialGrid(e) {
+    // fethc the topic & the sub topic from the id
+    const id = e.target.id;
+    const title = id.split('additionalBtn ')[1].split('--*')[0];
+    const key = id.split('additionalBtn ')[1].split('--*')[1];
+    const additionalDataArr = additionalData[title]; 
+    const specificDataObject  = additionalDataArr.filter((obj, index) => {
+        const objTitle = Object.keys(obj)[0]
+        if (objTitle === key) {
+            // save the object index
+            return obj;
+        }
+    });
+    const specificDataArray = specificDataObject[Object.keys(specificDataObject)[0]][key]
+    // make the topic page disappear not (removed)
+    document.getElementById('topicCardContainer').style.display = 'none';
+    document.getElementById('mainImgCon').style.display = 'none';
+    // populate the initial template;
+    populateAdditionalTemp(specificDataArray);
+}
 
 
-// next arrow animation functions (hard level)
-// requires understanding of asynchronous calls promises and frames
-async function nextAnimate(e) {
+function populateAdditionalTemp(dataArray) {
+    // initialise with first data point
+    const initialPoint = dataArray[additionalHandler];
+    const template = document.getElementById('animationGridTemp');
+    const clone = template.content.cloneNode(true);
+    clone.getElementById('contentImage').src = initialPoint.src;
+    const titleLabel = Object.keys(initialPoint)[0];
+    clone.getElementById('contentTitle').textContent = `${titleLabel}: ${initialPoint[titleLabel]}`;
+    const subLabel = Object.keys(initialPoint)[1];
+    clone.getElementById('contentDesc').textContent = `${subLabel}: ${initialPoint[subLabel]}`;
+    // add clone to body
+    document.body.appendChild(clone)
+    // add the event for the arrows
+    document.getElementById('prevArrow').addEventListener('click', (e) => nextAnimate(e, dataArray, 'prev'));
+    document.getElementById('nextArrow').addEventListener('click', (e) => nextAnimate(e, dataArray, 'next'));
+}
+
+// next/prev arrow animation functions (hard level)
+// requires understanding of asynchronous calls promises frames box-model etc
+async function nextAnimate(e, dataOfTopic, operation) {
     // ** step one get the folder icon
     const folderIcon = document.getElementById('folderIcon');
     // ** step two alter the div of content to be smaller thant the folder icon
@@ -389,23 +425,94 @@ async function nextAnimate(e) {
     const folderIconHeight = folderIcon.height;
     const contentDiv = document.getElementById('content');
     const disposalAnimationShrink = await shrinkDiv(contentDiv, folderIconWidth / 2,
-    folderIconHeight / 2, folderIcon, true, 0);
+    folderIconHeight / 2, folderIcon, true, 0, undefined, undefined, operation, dataOfTopic, true);
+    // shrinkDiv(contentDiv, folderIconWidth / 2,
+    // folderIconHeight / 2, folderIcon, true, 0);
     if (disposalAnimationShrink) {
         // ** step three bring it into the file and remove it from the body
-        console.log('scale done')
-        archiveData(contentDiv, folderIcon)
+        archiveData(contentDiv, folderIcon, dataOfTopic)
     }
 }
 
 
+// shrinking animation function
+function shrinkDiv(content, width, height, folderIcon, scaleCalc, targetScale, resolve, scaleCount, operation, dataOfTopic, added) {
+    // do not proceed with any animation if there is no prev/next data point
+    if (operation === 'next' && added === true) {
+        if (additionalHandler !== dataOfTopic.length - 1) {
+            additionalHandler++;
+        } else {
+            return new Promise((resolve, reject) => { 
+                resolve(false);
+            })
+        }
+    }
+    if (operation === 'prev' && added === true) {
+        if (additionalHandler !== 0) {
+            additionalHandler--;
+        } else {
+            return new Promise((resolve, reject) => { 
+                resolve(false);
+            })
+        }
+    }
+    if (resolve === undefined) {
+        return new Promise((resolve) => {
+            const currentWidth = content.offsetWidth;
+            const currentHeight = content.offsetHeight;
+            if (currentWidth <= width && currentHeight <= height) {
+                resolve(true);
+                return
+            }
+            if (currentWidth > width ) {
+                content.style.width = currentWidth - 1 + 'px';
+            }
+            if (currentHeight > height) {
+                content.style.height = currentHeight - 1 + 'px';
+            }
+            if (scaleCalc) {
+                targetScale = Math.min(width / content.offsetWidth, height / content.offsetHeight);
+                scaleCalc = !scaleCalc
+            }
+            requestAnimationFrame(() => shrinkDiv(content, width, height, folderIcon, scaleCalc, targetScale, resolve, 1, operation,dataOfTopic));      
+        })
+    } else {
+        // scalling is calculated in this code block
+        // necessary repetition because we want to return
+        // the promise of only the first call initiated
+        // by the await in the prevAnimate function
+        // issue from using request animation frame with another await function
+            const currentWidth = content.offsetWidth;
+            const currentHeight = content.offsetHeight;
+            if ((currentWidth <= width && currentHeight <= height) && scaleCount < targetScale) {
+                resolve(true);
+                return
+            }
+            if (currentWidth > width ) {
+                content.style.width = currentWidth - 1 + 'px';
+            }
+            if (currentHeight > height) {
+                content.style.height = currentHeight - 1 + 'px';
+            }
+            if (scaleCalc) {
+                targetScale = Math.min(width / content.offsetWidth, height / content.offsetHeight);
+                scaleCalc = !scaleCalc
+            }
+            scaleCount = scaleCount - 0.003
+            content.style.transform = `scale(${scaleCount})`;
+            requestAnimationFrame(() => shrinkDiv(content, width, height, folderIcon, scaleCalc, targetScale, resolve, scaleCount, operation, dataOfTopic));            
+    }
+}
+
+
+
 // archive animation function 
-function archiveData(content, folder) {
+function archiveData(content, folder, dataOfTopic) {
     content.style.position = 'absolute';
     // get the position of the mid point of the folder image
     const imgHeight = folder.offsetHeight;
     const imgTop = folder.offsetTop;
     const midpointY = imgTop + imgHeight / 2;
-    console.log(midpointY)
     // bring the div to the midpoint
     const startTop = content.offsetTop;
     const distanceY = midpointY - startTop - content.offsetHeight / 2;
@@ -422,7 +529,8 @@ function archiveData(content, folder) {
         } else {
             setTimeout(() => {
                 document.getElementById('animationGrid').removeChild(content)
-                nextContentAnimationInit()
+                // next content should be with the next data point
+                nextContentAnimationInit(dataOfTopic)
             }, 1000 * 1)
         }
     }
@@ -430,7 +538,7 @@ function archiveData(content, folder) {
 }
 
 
-function nextContentAnimationInit() {
+function nextContentAnimationInit(dataOfTopic) {
     // step one get the factory image location
     document.getElementById('statusText').textContent = 'Manufacturing'
     const factory = document.getElementById('factoryIcon');
@@ -439,10 +547,17 @@ function nextContentAnimationInit() {
     const factoryLeftEdge = factoryRec.left;
     const midY = factoryTopEdge + factory.offsetHeight / 2;
     const midX = factoryLeftEdge + factory.offsetWidth / 2;
-
     // creat new content at this position
+    const newPoint = dataOfTopic[additionalHandler];
+    console.log('checkpoint', newPoint);
     const template = document.getElementById('contentCardTemp');
     const clone = template.content.cloneNode(true);
+    // populate new clone with new point data
+    clone.getElementById('contentImage').src = newPoint.src;
+    const titleLabel = Object.keys(newPoint)[0];
+    clone.getElementById('contentTitle').textContent = `${titleLabel}: ${newPoint[titleLabel]}`;
+    const subLabel = Object.keys(newPoint)[1];
+    clone.getElementById('contentDesc').textContent = `${subLabel}: ${newPoint[subLabel]}`;
     const contentDiv = clone.getElementById('content');
     // add the div to the grid
     const grid = document.getElementById('animationGrid');
@@ -485,14 +600,15 @@ function nextContentAnimationInit() {
         } else {
             setTimeout(() => {
                 const startTop = contentDiv.offsetTop;
-                const distanceY = midYPoint - startTop - contentDiv.offsetHeight / 2;
+                const distanceY = midYPoint - startTop - content.offsetHeight ;
                 const divisor = 100
                 const stepY = distanceY / divisor;
+                console.log('ummmm height issues', startTop, distanceY, contentDiv.offsetHeight, stepY)
                 let count = 0;
                 function step() {
                     count++;
                     if (count <= divisor) {
-                    contentDiv.style.top = startTop - stepY * count + 'px';
+                    contentDiv.style.top = startTop + stepY * count + 'px';
                     requestAnimationFrame(step);
                     } else {
                         // scale it up and done
@@ -515,7 +631,6 @@ function nextContentAnimationInit() {
     
 
 function scaleUp(container, scaleFactor) {
-    console.log('ummm')
     if (scaleFactor < 1) {
         container.style.transform = `scale(${scaleFactor})`
         scaleFactor+= 0.01;
@@ -523,64 +638,4 @@ function scaleUp(container, scaleFactor) {
     } else {
         document.getElementById('statusText').textContent = 'IDLE'
     }
-}
-
-
-
-// shrinking animation function
-function shrinkDiv(content, width, height, folderIcon, scaleCalc, targetScale, resolve, scaleCount) {
-    if (resolve === undefined) {
-        return new Promise((resolve) => {
-            const currentWidth = content.offsetWidth;
-            const currentHeight = content.offsetHeight;
-            if (currentWidth <= width && currentHeight <= height) {
-                console.log('animation complete')
-                resolve(true);
-                return
-            }
-            if (currentWidth > width ) {
-                content.style.width = currentWidth - 1 + 'px';
-            }
-            if (currentHeight > height) {
-                content.style.height = currentHeight - 1 + 'px';
-            }
-            if (scaleCalc) {
-                targetScale = Math.min(width / content.offsetWidth, height / content.offsetHeight);
-                scaleCalc = !scaleCalc
-            }
-            requestAnimationFrame(() => shrinkDiv(content, width, height, folderIcon, scaleCalc, targetScale, resolve, 1));      
-        })
-    } else {
-        // scalling is calculated in this code block
-        // necessary repetition because we want to return
-        // the promise of only the first call initiated
-        // by the await in the prevAnimate function
-        // issue from using request animation frame with another await function
-            const currentWidth = content.offsetWidth;
-            const currentHeight = content.offsetHeight;
-            if ((currentWidth <= width && currentHeight <= height) && scaleCount < targetScale) {
-                resolve(true);
-                return
-            }
-            if (currentWidth > width ) {
-                content.style.width = currentWidth - 1 + 'px';
-            }
-            if (currentHeight > height) {
-                content.style.height = currentHeight - 1 + 'px';
-            }
-            if (scaleCalc) {
-                targetScale = Math.min(width / content.offsetWidth, height / content.offsetHeight);
-                scaleCalc = !scaleCalc
-            }
-            scaleCount = scaleCount - 0.003
-            content.style.transform = `scale(${scaleCount})`;
-            requestAnimationFrame(() => shrinkDiv(content, width, height, folderIcon, scaleCalc, targetScale, resolve, scaleCount));            
-    }
-}
-
-
-// prev arrow animation function
-
-function prevAnimate(e) {
-    console.log('working PREV')
 }
