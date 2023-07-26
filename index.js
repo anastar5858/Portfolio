@@ -471,15 +471,43 @@ function nextContentAnimationInit() {
     const gridSegmentHeight = grid.clientHeight / 3
     const midCellX = (gridLeft + (gridSegmentWidth * 2) / 2);
     const midCellY = (gridTop + (gridSegmentHeight) / 2);
-    console.log('ummmmmm', midCellX, midCellY)
+    // lets animate to the empty cell
+    // const animationY = midCellY + window.scrollY - scaledHeight;
+    // contentDiv.style.left = midCellX + window.scrollX + 100 + 'px'
+    // const animationX = midCellX + window.scrollX + gridSegmentWidth / 2 + test.offsetWidth / 2;
+    // contentDiv.style.left = midCellX + window.scrollX + gridSegmentWidth / 2 - scaledWidth + 'px'
+    const startLeft = contentDiv.offsetLeft;
+    const distanceX = (midCellX + window.scrollX);
+    console.log('ummmmmm',distanceX, startLeft )
+
+
+    // the bigger the divisor the slower the animation
+    // need to adjust count as well
+    const divisor = 100
+    const stepY = distanceX / divisor;
+    let count = 0;
+    function step() {
+        count++;
+        if (count <= divisor) {
+        content.style.left = startLeft - stepY * count + 'px';
+        requestAnimationFrame(step);
+        } else {
+            // setTimeout(() => {
+            //     document.getElementById('animationGrid').removeChild(content)
+            //     nextContentAnimationInit()
+            // }, 1000 * 1)
+        }
+    }
+    requestAnimationFrame(step);
+    // contentDiv.style.left = animationX + 'px'
+
     // testing element
     // const test = document.createElement('p');
     // test.textContent = 'hello there';
     // test.style.position = 'absolute';
-    // test.style.placeSelf = 'center';
     // grid.appendChild(test);
     // test.style.top = midCellY + window.scrollY + 'px'
-    // test.style.left = midCellX + window.scrollX  + 100 + 'px'
+    // test.style.left = animationX
 }
     
 
