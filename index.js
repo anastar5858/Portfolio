@@ -433,6 +433,7 @@ function archiveData(content, folder) {
 
 function nextContentAnimationInit() {
     // step one get the factory image location
+    document.getElementById('statusText').textContent = 'Manufacturing'
     const factory = document.getElementById('factoryIcon');
     const factoryRec = factory.getBoundingClientRect();
     const factoryTopEdge = factoryRec.top;
@@ -456,8 +457,6 @@ function nextContentAnimationInit() {
     const scaledTop = midY + window.scrollY - scaledHeight;
     const scaledLeft = midX + window.scrollX - scaledWidth;
     contentDiv.style.position = 'absolute';
-    contentDiv.style.width = contentWidth + 'px';
-    contentDiv.style.height = contentHeight  + 'px';
     contentDiv.style.top = scaledTop + 'px';
     contentDiv.style.left = scaledLeft + 'px';
     // shrink the content div
