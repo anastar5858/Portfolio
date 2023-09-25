@@ -400,7 +400,6 @@ async function nextAnimate(e, dataOfTopic, operation) {
 // shrinking animation function
 function shrinkDiv(content, width, height, folderIcon, scaleCalc, targetScale, resolve, scaleCount, operation, dataOfTopic, added) {
     // do not proceed with any animation if there is no prev/next data point
-    console.log('what happened', additionalHandler)
     if (operation === 'next' && added === true) {
         if (additionalHandler !== dataOfTopic.length - 1) {
             additionalHandler++;
@@ -510,7 +509,6 @@ function nextContentAnimationInit(dataOfTopic) {
     const midX = factoryLeftEdge + factory.offsetWidth / 2;
     // creat new content at this position
     const newPoint = dataOfTopic[additionalHandler];
-    console.log('checkpoint', newPoint);
     const template = document.getElementById('contentCardTemp');
     const clone = template.content.cloneNode(true);
     // populate new clone with new point data
