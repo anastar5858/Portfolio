@@ -12,6 +12,7 @@ button {
     background-color: hsl(49, 100%, 90%);
     border: hsl(55, 100%, 10%) solid 0.1rem;
     border-radius: 1rem;
+    cursor: pointer;
 }
 blockquote {
     margin-left: 0;
@@ -103,6 +104,9 @@ footer {
     justify-content: space-around;
     flex-wrap: wrap;
     background-color: hsl(49, 100%, 80%);
+}
+footer > * {
+    margin-top: 0;
 }
 li > * {
     margin-left: 0.5rem;
