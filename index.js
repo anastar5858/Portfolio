@@ -597,5 +597,5 @@ function fixLayout() {
         capturedHeight = true
         height = pageBioSec.offsetHeight;
     } 
-    pageBioSec.style.height = `calc(${height ? height : pageBioSec.clientHeight}px - ${myPhotoHeight - 36}px)`;
+    pageBioSec.style.height = `calc(${height ? height : pageBioSec.offsetHeight}px - ${myPhotoHeight - 36}px)`;
 }
