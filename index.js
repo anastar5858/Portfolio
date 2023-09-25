@@ -422,7 +422,7 @@ function shrinkDiv(content, width, height, folderIcon, scaleCalc, targetScale, r
     if (resolve === undefined) {
         document.getElementById('contentTitle').textContent = ``;
         document.getElementById('contentDesc').textContent = ``;
-        document.getElementById('contentLine').style.display = 'none';
+        document.getElementById('contentLine').style.dis = ''
         return new Promise((resolve) => {
             const currentWidth = content.clientWidth;
             const currentHeight = content.clientHeight;
@@ -464,8 +464,7 @@ function shrinkDiv(content, width, height, folderIcon, scaleCalc, targetScale, r
                 targetScale = Math.min(width / content.offsetWidth, height / content.offsetHeight);
                 scaleCalc = !scaleCalc
             }
-            scaleCount = scaleCount - 0.003
-            console.log('lets fix this', currentWidth, currentHeight, scaleCount, targetScale, scaleCount > targetScale, scaleCalc)
+            scaleCount = scaleCount - 0.003;
             if(scaleCount > targetScale) content.style.transform = `scale(${scaleCount})`;
             requestAnimationFrame(() => shrinkDiv(content, width, height, folderIcon, scaleCalc, targetScale, resolve, scaleCount, operation, dataOfTopic));            
     }
@@ -527,16 +526,16 @@ function nextContentAnimationInit(dataOfTopic) {
     // position the content div at the center of the factory icon
     const contentWidth = contentDiv.offsetWidth;
     const contentHeight = contentDiv.offsetHeight;
+    console.log('lets fix this', contentWidth, contentHeight)
     const targetScale = Math.min((factory.offsetWidth / 2) / contentWidth, (factory.offsetHeight / 2) / contentHeight);
-    const scaledWidth = contentWidth * targetScale;
-    const scaledHeight = contentHeight * targetScale;
-    const scaledTop = midY + window.scrollY - scaledHeight;
-    const scaledLeft = midX + window.scrollX - scaledWidth;
+    const scaledTop = midY;
+    const scaledLeft = midX;
     contentDiv.style.position = 'absolute';
-    contentDiv.style.top = scaledTop + 'px';
-    contentDiv.style.left = scaledLeft + 'px';
-    // shrink the content div
+    contentDiv.style.top = scaledTop + window.scrollY + 'px';
+    contentDiv.style.left = scaledLeft + window.scrollX + 'px';
+    contentDiv.style.transformOrigin = 'top left';
     contentDiv.style.transform = `scale(${targetScale})`;
+    // shrink the content div
     // now lets move it to the empty space fisrt
     // get the position relative to the document
     const gridRect = grid.getBoundingClientRect();
@@ -552,14 +551,15 @@ function nextContentAnimationInit(dataOfTopic) {
     // the bigger the divisor the slower the animation
     // need to adjust count as well
     const divisor = 100
-    const stepY = distanceX / divisor;
+    const stepX = distanceX / divisor;
     let count = 0;
     function step() {
         count++;
         if (count <= divisor) {
-        content.style.left = startLeft - stepY * count + 'px';
+        content.style.left = startLeft - stepX * count + 'px';
         requestAnimationFrame(step);
         } else {
+            return
             setTimeout(() => {
                 const startTop = contentDiv.offsetTop;
                 const distanceY = midYPoint - startTop - content.offsetHeight ;
@@ -571,7 +571,7 @@ function nextContentAnimationInit(dataOfTopic) {
                     console.log('step here')
                     count++;
                     if (count <= divisor) {
-                    contentDiv.style.top = startTop + stepY * count + 'px';
+                    contentDiv.style.top = startTop - stepY * count + 'px';
                     requestAnimationFrame(step);
                     } else {
                         // scale it up and done
