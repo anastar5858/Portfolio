@@ -107,6 +107,7 @@ footer {
 }
 footer > * {
     margin-top: 0;
+    margin-bottom: 0;
 }
 li > * {
     margin-left: 0.5rem;
