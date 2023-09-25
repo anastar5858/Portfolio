@@ -20,8 +20,6 @@ const hobbiesData = [
         text: 'Once I read a quote in my language, roughly translated as "Thee who never travels dies", and after experiencing the beauty of travelling the world, the quote ricocheted itself, and the essence emerged, as travelling is the only medium to establish connection with a different culture, learning their ways and beliefs, which retrospectively has a great impact on knowledge.',
     }
 ];
-
-
 const moviesData = [
     {
         movie: "Horror", 
@@ -44,8 +42,6 @@ const moviesData = [
         text: 'The reason I love comedy movies, is the laughter. As in many cases a good laugh is always a mode shifter throughout life stresses.',
     } 
 ]
-
-
 const booksData = [
     {
         book: "Sherlock Holmes", 
@@ -68,8 +64,6 @@ const booksData = [
         text: 'The reputation speaks for itself, as the greatest detailed science fiction novels on epic battles, and extraordinary war strategies. Hands down one of the favourites. Though the nomination was tough between it and Harry Potter.',
     } 
 ]
-
-
 const dataFile = {
     booksData, 
     moviesData,

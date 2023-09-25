@@ -9,13 +9,10 @@ let colorMsg = [{
     color: "rgb(255, 165, 0)",
     msg: "Books",
 }]
-
 // variable for smoothening the spinning effect
 let counterSpin = 0
-
 // where the removed segments would go from color msg
 let removedSegments = [];
-
 // the circle class
 class Circle {
     // constructor function with
@@ -84,7 +81,6 @@ class Circle {
             ctx.restore();
         }
     }
-
     // the function responsible for removing a segment
     // by placing it from the coloMsg array to the removed segments array
     removeSegment(ctx, stopping, w, h, circle) {
@@ -121,7 +117,6 @@ class Circle {
             this.drawSpinner(ctx)
         }
     }
-
     // the function responsible for drawing the spinner
     drawSpinner(ctx, angle, stopping, animate, w, h, circle) {
         // we have rotated to the stopping angle
@@ -181,7 +176,6 @@ class Circle {
         }
     }
 }
-
 // the function to initiate the animation process
 function animationHandler(e, circle) {
     // canvas in 2d and mid points
@@ -200,7 +194,6 @@ function animationHandler(e, circle) {
         requestAnimationFrame(() => circle.drawSpinner(ctx, 0, stoppingAngle, true, canvas.width, canvas.height, circle))
     }
 }
-
 // function executed when redraw is requested
 function redrawDefault(ctx, circle, w, h) {
     colorMsg = [...colorMsg, ...removedSegments];
@@ -209,7 +202,6 @@ function redrawDefault(ctx, circle, w, h) {
     circle.drawCircle(ctx);
     circle.drawSpinner(ctx)
 }
-
 // the main function executed when the script is loaded
 function startDrawing() {
     // bring the canvas in 2d and get the mid points
@@ -237,15 +229,7 @@ function startDrawing() {
 
     photoDiv.style.height = `${maxChildHeight}px`;
 }
-
-startDrawing()
-
-
-
 // topic title page function ---------------------------->
-
-
-
 // the function repsonsible for bringing the initial topic details
 function prepareTemplate(title) {
     // get the top template (the picture and h1 and back button)
@@ -272,9 +256,6 @@ function prepareTemplate(title) {
     document.getElementById('backToWheel').addEventListener('click', () => returnWheel())
     document.getElementById('fullBioPage').style.display = 'none'
 }
-
-
-
 let done = false;
 let count = 50;
 function animatedDataCards(data, allCardsCon, title) {
@@ -285,14 +266,8 @@ function animatedDataCards(data, allCardsCon, title) {
         })
     });
 }
-
 function generateDataCards(element, allCardsCon, title) {
-    // console.log('next start', count, element, done)
-    // for each card requestanimation frame
-    // if (done === true) {
-    //     return
-    //   }
-      // only display card once
+    // only display card once
     if (count === 50 && done === true) {
             const dataType = element[Object.keys(element)[0]];
             const templateCard = document.getElementById('topicPageCardTemp');
@@ -313,13 +288,10 @@ function generateDataCards(element, allCardsCon, title) {
     } else count--
     requestAnimationFrame(() => generateDataCards(element, allCardsCon, title))
 }
-
-
 // functions for unfolding the mask
 const maskImage = document.getElementById('hackMask');
 let opacity = 1;
 let requestId;
-
 function decreaseOpacity() {
   opacity -= 0.01;
   if (opacity < 0) {
@@ -330,7 +302,6 @@ function decreaseOpacity() {
     requestId = requestAnimationFrame(decreaseOpacity);
   }
 }
-
 function increaseOpacity() {
   opacity += 0.01;
   if (opacity > 1) {
@@ -341,15 +312,12 @@ function increaseOpacity() {
     requestId = requestAnimationFrame(increaseOpacity);
   }
 }
-
 maskImage.addEventListener('mouseover', () => {
   requestId = requestAnimationFrame(decreaseOpacity);
 });
-
 maskImage.addEventListener('mouseout', () => {
   requestId = requestAnimationFrame(increaseOpacity);
 });
-
 // function to bring the home page back and clean the topic page resources
 function returnWheel() {
     // remove other page resources
@@ -368,12 +336,7 @@ function returnWheel() {
     // bring the wheel home component back
     document.getElementById('fullBioPage').style.display = 'block'
 }
-
-
-
-
 // additional content page functions ---------------------------->
-
 let  additionalHandler = 0;
 function createInitialGrid(e) {
     // fethc the topic & the sub topic from the id
@@ -395,8 +358,6 @@ function createInitialGrid(e) {
     // populate the initial template;
     populateAdditionalTemp(specificDataArray);
 }
-
-
 function populateAdditionalTemp(dataArray) {
     // initialise with first data point
     const initialPoint = dataArray[additionalHandler];
@@ -413,7 +374,6 @@ function populateAdditionalTemp(dataArray) {
     document.getElementById('prevArrow').addEventListener('click', (e) => nextAnimate(e, dataArray, 'prev'));
     document.getElementById('nextArrow').addEventListener('click', (e) => nextAnimate(e, dataArray, 'next'));
 }
-
 // next/prev arrow animation functions (hard level)
 // requires understanding of asynchronous calls promises frames box-model etc
 async function nextAnimate(e, dataOfTopic, operation) {
@@ -433,8 +393,6 @@ async function nextAnimate(e, dataOfTopic, operation) {
         archiveData(contentDiv, folderIcon, dataOfTopic)
     }
 }
-
-
 // shrinking animation function
 function shrinkDiv(content, width, height, folderIcon, scaleCalc, targetScale, resolve, scaleCount, operation, dataOfTopic, added) {
     // do not proceed with any animation if there is no prev/next data point
@@ -503,9 +461,6 @@ function shrinkDiv(content, width, height, folderIcon, scaleCalc, targetScale, r
             requestAnimationFrame(() => shrinkDiv(content, width, height, folderIcon, scaleCalc, targetScale, resolve, scaleCount, operation, dataOfTopic));            
     }
 }
-
-
-
 // archive animation function 
 function archiveData(content, folder, dataOfTopic) {
     content.style.position = 'absolute';
@@ -536,8 +491,6 @@ function archiveData(content, folder, dataOfTopic) {
     }
   requestAnimationFrame(step);
 }
-
-
 function nextContentAnimationInit(dataOfTopic) {
     // step one get the factory image location
     document.getElementById('statusText').textContent = 'Manufacturing'
@@ -620,16 +573,7 @@ function nextContentAnimationInit(dataOfTopic) {
         }
     }
     requestAnimationFrame(step) ;
-    // testing element
-    // const test = document.createElement('p');
-    // test.textContent = 'hello there';
-    // test.style.position = 'absolute';
-    // grid.appendChild(test);
-    // test.style.top = midCellY + window.scrollY + 'px'
-    // test.style.left = animationX
 }
-    
-
 function scaleUp(container, scaleFactor) {
     if (scaleFactor < 1) {
         container.style.transform = `scale(${scaleFactor})`
@@ -639,3 +583,4 @@ function scaleUp(container, scaleFactor) {
         document.getElementById('statusText').textContent = 'IDLE'
     }
 }
+startDrawing();
