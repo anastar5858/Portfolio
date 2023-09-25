@@ -423,8 +423,8 @@ function shrinkDiv(content, width, height, folderIcon, scaleCalc, targetScale, r
         document.getElementById('contentDesc').textContent = ``;
         document.getElementById('contentLine').style.dis = ''
         return new Promise((resolve) => {
-            const currentWidth = content.clientWidth;
-            const currentHeight = content.clientHeight;
+            const currentWidth = content.offsetWidth;
+            const currentHeight = content.offsetHeight;
             if (currentWidth <= width && currentHeight <= height) {
                 resolve(true);
                 return
@@ -539,12 +539,12 @@ function nextContentAnimationInit(dataOfTopic) {
     const gridLeft = gridRect.left;
     const gridTop = gridRect.top
     // remember 3 is automatic
-    const gridSegmentWidth = grid.clientWidth / 3;
+    const gridSegmentWidth = grid.offsetWidth / 3;
     const midCellX = (gridLeft + (gridSegmentWidth * 2) / 2) + 10;
     const startLeft = contentDiv.offsetLeft;
     const distanceX = midCellX;
     // trial for mid cell point
-    const gridSegmentHeight = grid.clientHeight / 3;
+    const gridSegmentHeight = grid.offsetHeight / 3;
     const midCellY = (gridTop + (gridSegmentHeight) / 2 );
     // the bigger the divisor the slower the animation
     // need to adjust count as well
@@ -591,11 +591,11 @@ function scaleUp(container, scaleFactor) {
 startDrawing();
 // fixing layout issues
 function fixLayout() {
-    const myPhotoHeight = document.getElementById('anas').clientHeight;
+    const myPhotoHeight = document.getElementById('anas').offsetHeight;
     const pageBioSec = document.getElementById('fullBioPage');
     if (!capturedHeight) {
         capturedHeight = true
-        height = pageBioSec.clientHeight;
+        height = pageBioSec.offsetHeight;
     } 
     pageBioSec.style.height = `calc(${height ? height : pageBioSec.clientHeight}px - ${myPhotoHeight - 36}px)`;
 }
