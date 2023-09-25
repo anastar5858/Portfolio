@@ -2,54 +2,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
+    <title>Biography Page</title>
     <link rel="stylesheet" href="./index.css">
     <script src="./data/data.js"></script>
     <script src="./data/additionalData.js"></script>
-
+    <script src="https://kit.fontawesome.com/8de78a9906.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <!-- biogaphy page  -->
-    <div id="fullBioPage">
-        <div id = 'topHome'>
-          <h1 id="title">Anas' Stochastic Portfolio</h1>
-        </div>  
-        <div id="biography">
-          <hr id="topSeperate">
-            <p id="biographyPara">
-                I am a keen software engineer. 
-                Enthusiastic about all kinds of
-                technological advancement with a special 
-                interest in Artificial Intelligence
-                applicability to various industries. 
-                Determined to direct projects to success 
-                with an ecstasy for resolving brain 
-                stimulating challenges. A seeker for 
-                everlasting education and new skills.
-            </p>
-        </div>
-        <div id="spinnerText">
-            <p id="surpriseQuote">"Life Is Full Of Surprises"</p>
-            <hr id="spinnerHr">
-            <p id="surpriseKnow">Know More About Me (Spin):</p>
-        </div>
-        <div id="spinningWheelDiv">
-            <canvas  height="240px" width="320px" id="spinningWheel"></canvas>
-            <button id = 'redrawCircle'>Redraw</button>
-        </div>
-        <!-- hacking image section -->
-        <div id="photoSec">
-        <div id="unfoldText">
-            <p>"Unfold The Mask" - Hover</p>
-        </div>
-        <div id="hackerMask">
-            <img id="hackMask" width="200px" height="200px" src="./images/vendetta.png" alt="Hacker Mask">
-            <img id="anas" width="200px" height="200px" src="./images/photo.png" alt="My Photo">
-        </div>
-        </div>
-    </div>
-
-
+    <!-- new HTML with semantics -->
+    <header>
+        <!-- navbar -->
+        <nav id="mainNav">
+            <div id="logo">
+                <i>A</i>
+                <strong>N</strong>
+                <i>A</i>
+                <strong>S</strong>
+            </div>
+            <div id="flexLinks">
+                <a class="navLink" href="index.html">Biography</a>
+                <a class="navLink" href="pages/projects.html">Projects</a>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div id="fixPosition"></div>
+        <!-- bigraphy information area -->
+        <section id="fullBioPage">
+            <section id = 'bioTitle'>
+                <strong id="title">Anas' Portfolio</strong>
+                <hr class="spinnerHr">
+            </section>
+            <section id="bioText">
+                <p id="biographyPara">
+                    I am a keen software engineer. 
+                    Enthusiastic about all kinds of
+                    technological advancement with a special 
+                    interest in Artificial Intelligence
+                    applicability to various industries. 
+                    Determined to direct projects to success 
+                    with an ecstasy for resolving brain 
+                    stimulating challenges. A seeker for 
+                    everlasting education and new skills.
+                </p>
+                 <section id="photoSec">
+                    <p>"Unfold The Mask"<small><strong> - Hover Over Me</strong></small></p>
+                    <picture id="hackerMask">
+                         <img class="shadow" id="hackMask" width="200px" height="200px" src="./images/vendetta.png" alt="Hacker Mask">
+                         <img id="anas" width="200px" height="200px" src="./images/photo.png" alt="My Photo">
+                    </picture>
+                    <blockquote>
+                        <i>"Sometimes it is not the hardest concept preventing you 
+                        from advancing, it is the basic fundamental."</i>
+                    </blockquote>
+                    <blockquote><i>"Thee who controls life, life shan't control thee."</i></blockquote>
+                    <blockquote><i>"Knowledge is a two-edged sword of ignorance and intellect"</i></blockquote>
+                    <strong id="citation">~Anas</strong>
+                </section>
+            </section>
+        </section>
+        <!-- spinner area -->
+        <section id="spinnerArea">
+            <section id="spinnerText">
+                <strong id="surpriseQuote">"Life Is Full Of Surprises"</strong>
+                <hr class="spinnerHr">
+                <strong id="surpriseKnow">Know More About Me <small><strong> - Spin</strong>:</strong>
+            </section>
+            <section id="spinningWheelSec">
+                <canvas height="240px" width="320px" id="spinningWheel"></canvas>
+                <button id='redrawCircle'>Redraw</button>
+            </section>
+        </section>
+    </main>
+    <footer>
+        <ul>
+            <strong>Contact:</strong>
+            <li>WhatsApp: +447492647743<i class="fa-brands fa-whatsapp"></i></li>
+            <li>Phone: +966595543849<i class="fa-solid fa-phone"></i></li>
+            <li>Email: anas.tarrab58@gmail.com<i class="fa-solid fa-envelope"></i></li>
+        </ul>
+        <ul>
+            <strong>Social Media:</strong>
+            <li>
+                <a href="https://www.linkedin.com/in/anas-tarrab-36692627a/">Linkedin</a>
+                <i class="fa-brands fa-linkedin"></i>
+            </li>
+        </ul>
+        <ul id="address">
+            <strong>Address:</strong><br>
+            Al Sadad, 2683, 7242, Taif, 26515, Saudi Arabia.
+            <i class="fa-solid fa-location-dot"></i>
+        </ul>
+        <ul>
+            <strong>@AnasPortfolio</strong>
+        </ul>
+    </footer>
     <!-- topics page -->
     <template id="topicPageTitleTemp">
     <div id="mainImgCon">
@@ -77,7 +124,6 @@
             </div>
         </div>
     </template>
-
     <!-- additional content animation grid -->
     <template id="animationGridTemp">
         <div id="animationGrid">

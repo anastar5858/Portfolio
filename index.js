@@ -584,3 +584,10 @@ function scaleUp(container, scaleFactor) {
     }
 }
 startDrawing();
+// fixing layout issues on load
+window.addEventListener('load', fixLayout());
+function fixLayout() {
+    const myPhotoHeight = document.getElementById('anas').clientHeight;
+    const pageBioSec = document.getElementById('fullBioPage');
+    pageBioSec.style.height = `calc(${pageBioSec.clientHeight}px - ${myPhotoHeight - 50}px)`;
+}

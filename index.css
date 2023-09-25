@@ -2,290 +2,129 @@
     --fontSize: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     --weight: 600;
 }
-
-html {
-    background: white;
-}
-
-body {
-    margin: 0 32px;
-    background: #F9F6EE;
-}
-
-
 p{
     font-family: var(--fontSize);
     font-weight: var(--weight);
 }
-
-#topHome {
-    display: flex;
-    margin-bottom: 0.2rem;
+/* re instating design starts here (design for mobile first) */
+/* general rules >>>>>>>>>>>>>>>>>>>>>>>>> */
+button {
+    background-color: hsl(49, 100%, 90%);
+    border: hsl(55, 100%, 10%) solid 0.1rem;
+    border-radius: 1rem;
 }
-
-#img {
-    position: relative;
+blockquote {
+    margin-left: 0;
 }
-
-#picOverlay {
-    position: absolute;
-    opacity: 15%;
-}
-
-#title {
-    margin: auto;
-}
-
-#topSeperate{
-    width: calc(100% - 20%);
-    background: linear-gradient(to bottom, #3ABDF0 70%, #1F56E4);
-    height: 0.5rem;
+.spinnerHr {
+    margin-left: 0;
+    width: 25ex;
+    height: 0.7ex;
+    background: linear-gradient(to bottom, hsl(49, 100%, 80%) 70%, hsl(49, 100%, 100%));
     border-radius: 0.5rem;
+    border-color: hsl(49, 100%, 10%);
 }
-
-/* biographyCss */
-
-#biography {
+/* biography page css >>>>>>>>>>>>>>>>>>>>>>>>> */
+/* navigational bar (header) %% */
+#mainNav {
+    position: fixed;
+    width: 95%;
+    background-color: hsl(49, 100%, 80%);
     display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+    justify-content: space-between;
 }
-
-#biographyPara {
-    max-width: 50%;
-    max-height: 50%;
-    margin: 2rem auto 3rem auto;
-}
-
-/* spinner section css */
-
-#spinnerText{
+#logo {
     display: flex;
-    gap: 2rem;
-    margin-left: 5vw;
-    margin-bottom: 3rem;
+    background: linear-gradient(to bottom, hsl(49, 100%, 50%) 20%, hsl(49, 100%, 100%));
 }
-
-#spinnerHr {
-    margin: 0;
-    width: calc(0.2%);
-    background: linear-gradient(to bottom, #3ABDF0 70%, #1F56E4);
-    border-radius: 0.5rem;
+#flexLinks {
+    display: flex;
+    gap: 1rem;
 }
-
-#surpriseQuote {
-    margin-left: calc(10%);
-
+.navLink {
+    background-color: hsl(49, 100%, 90%);
+    text-decoration: none;
+    color: hsl(49, 40%, 0%);
 }
-
-/* spinning wheel css */
-
-#spinningWheelDiv {
-    margin-bottom: 0;
-    position: relative;
+/* biography information section (main) %%*/
+#fixPosition {
+    width: 100%;
+    height: 2rem;
 }
-#spinningWheel {
-    margin-left: calc(30%);
-}
-
-#redrawCircle {
-    background-color: #EFF256;
-    position: absolute;
-    top: 50%;
-    border: 3x solid yellow;
-    border-radius: 5rem;
-}
-
-/* hackerMask css */
-
-#photoSec {
-    position: absolute;
-    top: 200;
-    right: 100;
+#fullBioPage {
+    background-color: hsl(49, 100%, 96%);
 }
 #hackerMask {
+    float: right;
     position: relative;
 }
-
 #unfoldText {
     position: relative;
 }
-
 /* picture on top of each other */
 #hackMask {
     position: relative;
     z-index: 1;
 }
-
 #anas {
     position: absolute;
     top: 0;
     left: 0;
     z-index: 0;
 }
-
-
-
-/* topics page css  */
-
-/* overlay topic effect */
-#mainImgCon {
-    margin-bottom: 5%;
-    position: relative;
-    top: 0;
-    left: 0;
+.shadow {
+    /* background-color: aliceblue; */
+    box-shadow: 0.01rem 0.01rem 0.5rem 0.05rem hsl(49, 100%, 10%);
+    animation: circle 3s infinite;
 }
-#topicWall {
-    position: relative;
-    width: 100%;
-    height: 50%;
-    top: 0;
-    left: 0;
+@keyframes circle {
+    0% { clip-path: circle(75%); }
+    50% { clip-path: circle(50%); }
+    100% { clip-path: circle(75%); }
 }
-
-#topicOverlay {
-    position: absolute;
-    width: 100%;
-    height: 85%;
-    top: 0;
-    left: 0;
-    opacity: 74%;
+#citation {
+    display: block;
+    text-align: center ;
 }
-#topicTitle {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    font-size: 3rem;
+/* spinner area */
+#spinnerArea {
+    margin-top: 1rem;
+    background-color: hsl(49, 100%, 94%);
 }
-
-#backToWheel {
-    position: absolute;
-    color: blue;
-    text-decoration: underline;
-    top: 65%;
-    left: 50%;
-    font-size: 1rem;
-} 
-
-
-
-/* topic card css */
-
-#titleDesc {
+#spinningWheelSec {
     display: flex;
     flex-direction: column;
-    height: 20%;
-    width: 65%;
+    align-items: center; /* Prevents horizontal stretching */
 }
-
-#fullCard {
-    width: 20%;
-    max-height: 50%;
-    gap: 5%;
+/* footer section %% */
+footer {
+    margin-top: 1rem;
     display: flex;
-
-}
-
-#additional {
-    margin-top: 10%;
-    display: flex;
-    gap: 0.4rem;
-    width: 30% ;
-}
-
-
-[id^="additionalBtn"] {
-    height: fit-content;
-    margin-top: 10%;
-    background-color: #EFF256;
-    border: 3x solid yellow;
-    border-radius: 5rem;
-    z-index: 1;
-
-}
-
-[id^="additionalBtn"]:hover {
-    opacity: 85%;
-    background-color: gold;
-    z-index: 2;
-}
-
-#additionalHr {
-    width: 3%;
-    background: linear-gradient(to bottom, #3ABDF0 70%, #1F56E4);
-    height: 10%;
-    border-radius: 0.5rem;
-}
-
-.topicCardContainer {
-    display: flex;
+    justify-content: space-around;
     flex-wrap: wrap;
-    gap: 5rem;
+    background-color: hsl(49, 100%, 80%);
 }
-
-
-.topicCardCon {
-    position: relative;
-    width: 100%;
-    height: auto;
-  }
-
-  .topicCardCon::before {
-    content: "";
-    position: absolute;
-    inset: -5px;
-    background-image: linear-gradient(-180deg, rgba(255,255,255,0.50) 0%, rgba(0,0,0,0.50) 100%);
-    box-shadow: 5px 10px violet;
-    opacity: 20%;
-    filter: blur(10px);
-    z-index: 0;
-  }
-
-  .topicCardCon:hover::before {
-    opacity: 40%;
-  }
-
-
-  /* additional content page */
-
-  /* grid areas */
-  #statusTopRight {
-    grid-area: status;
-  }
-
-  #content {
-    width: 200px;
-    height: 300px;
-    grid-area: content;
-  }
-  #arrowPrev {
-    grid-area: prev;
-  }
-
-  #arrowNext {
-    grid-area: next;
-  }
-
-  #midBottom {
-    grid-area: disposal;
-  }
-
-  /* grid */
-  #animationGrid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    grid-template-areas: 
-    ". . status"
-    "prev content next"
-    ". disposal .";
-    justify-items: center;
-    align-items: center;
-  }
-
-  #statusDots {
-    display: block;
-  }
-
- 
-  
+li > * {
+    margin-left: 0.5rem;
+}
+#address > * {
+    margin-left: 0.5rem;
+}
+/* >>>>>>>>>>>>>>>>>>>>> breakpoints start here >>>>>>>>>>>>>>>>>> */
+@media only screen and  (min-width: 760px) {
+    #spinnerArea {
+        text-align: center;
+    }
+    .spinnerHr {
+        margin-left: auto;
+    }
+    #fullBioPage {
+        text-align: center;
+    }  
+}
+@media only screen and (min-width: 1100px) {
+    #hackerMask {
+        right: 10%;
+    }
+}
+/* ----------------------------------------- */
