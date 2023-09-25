@@ -212,10 +212,16 @@ li > * {
   #content {
     grid-area: content;
   }
+  #contentImage {
+    width: 100px;
+    height: 100px;
+  }
   #arrowPrev {
+    z-index: 1;
     grid-area: prev;
   }
   #arrowNext {
+    z-index: 1;
     grid-area: next;
   }
   #midBottom {

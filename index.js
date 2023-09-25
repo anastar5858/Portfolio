@@ -264,7 +264,6 @@ let done = false;
 let count = 50;
 function animatedDataCards(data, allCardsCon, title) {
     data.forEach((element) => {
-        // console.log('should be printed 5 times', element)
         requestAnimationFrame(() => {
            generateDataCards(element, allCardsCon, title)
         })
@@ -401,6 +400,7 @@ async function nextAnimate(e, dataOfTopic, operation) {
 // shrinking animation function
 function shrinkDiv(content, width, height, folderIcon, scaleCalc, targetScale, resolve, scaleCount, operation, dataOfTopic, added) {
     // do not proceed with any animation if there is no prev/next data point
+    console.log('what happened', additionalHandler)
     if (operation === 'next' && added === true) {
         if (additionalHandler !== dataOfTopic.length - 1) {
             additionalHandler++;
@@ -526,7 +526,6 @@ function nextContentAnimationInit(dataOfTopic) {
     // position the content div at the center of the factory icon
     const contentWidth = contentDiv.offsetWidth;
     const contentHeight = contentDiv.offsetHeight;
-    console.log('lets fix this', contentWidth, contentHeight)
     const targetScale = Math.min((factory.offsetWidth / 2) / contentWidth, (factory.offsetHeight / 2) / contentHeight);
     const scaledTop = midY;
     const scaledLeft = midX;
@@ -540,14 +539,15 @@ function nextContentAnimationInit(dataOfTopic) {
     // get the position relative to the document
     const gridRect = grid.getBoundingClientRect();
     const gridLeft = gridRect.left;
+    const gridTop = gridRect.top
     // remember 3 is automatic
     const gridSegmentWidth = grid.clientWidth / 3;
-    const midCellX = (gridLeft + (gridSegmentWidth * 2) / 2);
+    const midCellX = (gridLeft + (gridSegmentWidth * 2) / 2) + 10;
     const startLeft = contentDiv.offsetLeft;
     const distanceX = (midCellX + window.scrollX);
     // trial for mid cell point
     const gridSegmentHeight = grid.clientHeight / 3;
-    const midYPoint = gridSegmentHeight / 0.5;
+    const midCellY = (gridTop + (gridSegmentHeight) / 2);
     // the bigger the divisor the slower the animation
     // need to adjust count as well
     const divisor = 100
@@ -559,19 +559,17 @@ function nextContentAnimationInit(dataOfTopic) {
         content.style.left = startLeft - stepX * count + 'px';
         requestAnimationFrame(step);
         } else {
-            return
             setTimeout(() => {
                 const startTop = contentDiv.offsetTop;
-                const distanceY = midYPoint - startTop - content.offsetHeight ;
+                const distanceY = midCellY + window.scrollY ;
                 const divisor = 100
                 const stepY = distanceY / divisor;
                 console.log('ummmm height issues', startTop, distanceY, contentDiv.offsetHeight, stepY)
                 let count = 0;
                 function step() {
-                    console.log('step here')
                     count++;
                     if (count <= divisor) {
-                    contentDiv.style.top = startTop - stepY * count + 'px';
+                    contentDiv.style.top = startTop + stepY * count + 'px';
                     requestAnimationFrame(step);
                     } else {
                         // scale it up and done
