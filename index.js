@@ -544,10 +544,10 @@ function nextContentAnimationInit(dataOfTopic) {
     const gridSegmentWidth = grid.clientWidth / 3;
     const midCellX = (gridLeft + (gridSegmentWidth * 2) / 2) + 10;
     const startLeft = contentDiv.offsetLeft;
-    const distanceX = (midCellX + window.scrollX);
+    const distanceX = midCellX;
     // trial for mid cell point
     const gridSegmentHeight = grid.clientHeight / 3;
-    const midCellY = (gridTop + (gridSegmentHeight) / 2);
+    const midCellY = (gridTop + (gridSegmentHeight) / 2 );
     // the bigger the divisor the slower the animation
     // need to adjust count as well
     const divisor = 100
@@ -564,7 +564,6 @@ function nextContentAnimationInit(dataOfTopic) {
                 const distanceY = midCellY + window.scrollY ;
                 const divisor = 100
                 const stepY = distanceY / divisor;
-                console.log('ummmm height issues', startTop, distanceY, contentDiv.offsetHeight, stepY)
                 let count = 0;
                 function step() {
                     count++;
