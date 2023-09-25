@@ -341,7 +341,6 @@ function returnWheel() {
     document.getElementById('mainBioPage').innerHTML = innerHTMLBackup;
     innerHTMLBackup = null;
     startDrawing();
-    // document.getElementById('mainBioPage').style.display = 'block'
 }
 // additional content page functions ---------------------------->
 let  additionalHandler = 0;
@@ -360,8 +359,7 @@ function createInitialGrid(e) {
     });
     const specificDataArray = specificDataObject[Object.keys(specificDataObject)[0]][key]
     // make the topic page disappear not (removed)
-    document.getElementById('topicCardContainer').style.display = 'none';
-    document.getElementById('mainImgCon').style.display = 'none';
+    document.getElementById('mainBioPage').innerHTML = '';
     // populate the initial template;
     populateAdditionalTemp(specificDataArray);
 }
@@ -376,7 +374,7 @@ function populateAdditionalTemp(dataArray) {
     const subLabel = Object.keys(initialPoint)[1];
     clone.getElementById('contentDesc').textContent = `${subLabel}: ${initialPoint[subLabel]}`;
     // add clone to body
-    document.body.appendChild(clone)
+    document.getElementById('mainBioPage').appendChild(clone)
     // add the event for the arrows
     document.getElementById('prevArrow').addEventListener('click', (e) => nextAnimate(e, dataArray, 'prev'));
     document.getElementById('nextArrow').addEventListener('click', (e) => nextAnimate(e, dataArray, 'next'));
@@ -422,9 +420,12 @@ function shrinkDiv(content, width, height, folderIcon, scaleCalc, targetScale, r
         }
     }
     if (resolve === undefined) {
+        document.getElementById('contentTitle').textContent = ``;
+        document.getElementById('contentDesc').textContent = ``;
+        document.getElementById('contentLine').style.display = 'none';
         return new Promise((resolve) => {
-            const currentWidth = content.offsetWidth;
-            const currentHeight = content.offsetHeight;
+            const currentWidth = content.clientWidth;
+            const currentHeight = content.clientHeight;
             if (currentWidth <= width && currentHeight <= height) {
                 resolve(true);
                 return
@@ -464,7 +465,8 @@ function shrinkDiv(content, width, height, folderIcon, scaleCalc, targetScale, r
                 scaleCalc = !scaleCalc
             }
             scaleCount = scaleCount - 0.003
-            content.style.transform = `scale(${scaleCount})`;
+            console.log('lets fix this', currentWidth, currentHeight, scaleCount, targetScale, scaleCount > targetScale, scaleCalc)
+            if(scaleCount > targetScale) content.style.transform = `scale(${scaleCount})`;
             requestAnimationFrame(() => shrinkDiv(content, width, height, folderIcon, scaleCalc, targetScale, resolve, scaleCount, operation, dataOfTopic));            
     }
 }
@@ -566,6 +568,7 @@ function nextContentAnimationInit(dataOfTopic) {
                 console.log('ummmm height issues', startTop, distanceY, contentDiv.offsetHeight, stepY)
                 let count = 0;
                 function step() {
+                    console.log('step here')
                     count++;
                     if (count <= divisor) {
                     contentDiv.style.top = startTop + stepY * count + 'px';
@@ -590,8 +593,9 @@ function scaleUp(container, scaleFactor) {
         document.getElementById('statusText').textContent = 'IDLE'
     }
 }
-startDrawing();
-prepareTemplate('hobbies')
+// startDrawing();
+// prepareTemplate('hobbies')
+createInitialGrid({ target: {id: 'additionalBtn Hobbies--*Learning new languages'}})
 // fixing layout issues
 function fixLayout() {
     const myPhotoHeight = document.getElementById('anas').clientHeight;

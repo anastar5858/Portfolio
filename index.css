@@ -203,6 +203,40 @@ li > * {
   .topicCardCon:hover::before {
     opacity: 40%;
   }
+/* ///////////////////////// additional animation page //////////////////////////////// */
+/* additional content page */
+  /* grid areas */
+  #statusTopRight {
+    grid-area: status;
+  }
+  #content {
+    grid-area: content;
+  }
+  #arrowPrev {
+    grid-area: prev;
+  }
+  #arrowNext {
+    grid-area: next;
+  }
+  #midBottom {
+    grid-area: disposal;
+  }
+  /* grid */
+  #animationGrid {
+    display: grid;
+    height: 100vh;
+    grid-template-columns: 33.33vw 33.33vw 33.33vw;
+    grid-template-rows: 33.33vh 33.33vh 33.33vh;
+    grid-template-areas: 
+    ". . status"
+    "prev content next"
+    ". disposal .";
+    align-items: center;
+    justify-items: center;
+  }
+  #statusDots {
+    display: block;
+  }
 /* >>>>>>>>>>>>>>>>>>>>> breakpoints start here >>>>>>>>>>>>>>>>>> */
 @media only screen and  (min-width: 760px) {
     #mainNav {
