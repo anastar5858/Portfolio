@@ -53,6 +53,7 @@ blockquote {
     height: 2rem;
 }
 #fullBioPage {
+    padding: 1rem;
     background-color: hsl(49, 100%, 96%);
 }
 #hackerMask {
@@ -89,6 +90,7 @@ blockquote {
 }
 /* spinner area */
 #spinnerArea {
+    padding: 1rem;
     margin-top: 1rem;
     background-color: hsl(49, 100%, 94%);
 }
@@ -104,10 +106,6 @@ footer {
     justify-content: space-around;
     flex-wrap: wrap;
     background-color: hsl(49, 100%, 80%);
-}
-footer > * {
-    margin-top: 0;
-    margin-bottom: 0;
 }
 li > * {
     margin-left: 0.5rem;

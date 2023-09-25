@@ -589,5 +589,5 @@ window.addEventListener('load', fixLayout());
 function fixLayout() {
     const myPhotoHeight = document.getElementById('anas').clientHeight;
     const pageBioSec = document.getElementById('fullBioPage');
-    pageBioSec.style.height = `calc(${pageBioSec.clientHeight}px - ${myPhotoHeight - 50}px)`;
+    pageBioSec.style.height = `calc(${pageBioSec.clientHeight}px - ${myPhotoHeight - 36}px)`;
 }
