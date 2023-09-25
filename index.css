@@ -28,6 +28,7 @@ blockquote {
 /* biography page css >>>>>>>>>>>>>>>>>>>>>>>>> */
 /* navigational bar (header) %% */
 #mainNav {
+    z-index: 1;
     position: fixed;
     width: 95%;
     background-color: hsl(49, 100%, 80%);
@@ -113,6 +114,34 @@ li > * {
 #address > * {
     margin-left: 0.5rem;
 }
+/* // topics page // */
+#topicWall {
+    position: relative;
+    width: 99%;
+    height: 50%;
+}
+#topicOverlay {
+    position: absolute;
+    width: 99%;
+    height: 50%;
+    top: 0;
+    left: 0;
+    opacity: 40%;
+}
+#topicTitle {
+    position: absolute;
+    top: 25%;
+    left: 45%;
+    font-size: 3rem;
+}
+#backToWheel {
+    position: absolute;
+    color: blue;
+    text-decoration: underline;
+    top: 35%;
+    left: 45%;
+    font-size: larger;
+} 
 /* >>>>>>>>>>>>>>>>>>>>> breakpoints start here >>>>>>>>>>>>>>>>>> */
 @media only screen and  (min-width: 760px) {
     #mainNav {

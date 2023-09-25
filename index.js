@@ -1,4 +1,7 @@
 // array holding the color of each circle segment and the message 
+let innerHTMLBackup;
+let capturedHeight = false;
+let height;
 let colorMsg = [{
     color: "rgb(238, 130, 238)",
     msg: "Hobbies",
@@ -226,8 +229,8 @@ function startDrawing() {
     childElements.forEach((element) => {
     maxChildHeight+=element.offsetHeight;
     });
-
     photoDiv.style.height = `${maxChildHeight}px`;
+    fixLayout();
 }
 // topic title page function ---------------------------->
 // the function repsonsible for bringing the initial topic details
@@ -249,12 +252,13 @@ function prepareTemplate(title) {
     data = dataFile[`${title.toLowerCase()}Data`];
     clon.getElementById('topicWall').src = `./images/Topics wallpapers/${title.toLowerCase()}.png`
     clon.getElementById('topicTitle').textContent = title
-    document.body.appendChild(clon)
-    document.body.appendChild(allCardsCon)
+    innerHTMLBackup = document.getElementById('mainBioPage').innerHTML;
+    document.getElementById('mainBioPage').innerHTML = ''
+    document.getElementById('mainBioPage').appendChild(clon)
+    document.getElementById('mainBioPage').appendChild(allCardsCon)
     animatedDataCards(data, allCardsCon, title)
     // make the home page dissapeara and add the event tp bring it back on clicking on the back button
     document.getElementById('backToWheel').addEventListener('click', () => returnWheel())
-    document.getElementById('fullBioPage').style.display = 'none'
 }
 let done = false;
 let count = 50;
@@ -325,16 +329,19 @@ function returnWheel() {
     const pageTopicDesc = document.getElementsByClassName('topicCardCon');
     const allCardsCon = document.getElementById('topicCardContainer')
     if (pageTopicTitle) {
-        document.body.removeChild(pageTopicTitle)
+        document.getElementById('mainBioPage').removeChild(pageTopicTitle)
     }
     if (pageTopicDesc.length > 0) {
         for (let i = pageTopicDesc.length - 1; i >= 0; i--) {
             allCardsCon.removeChild(pageTopicDesc[i]);
         }
-        document.body.removeChild(allCardsCon);
+        document.getElementById('mainBioPage').removeChild(allCardsCon);
     }
     // bring the wheel home component back
-    document.getElementById('fullBioPage').style.display = 'block'
+    document.getElementById('mainBioPage').innerHTML = innerHTMLBackup;
+    innerHTMLBackup = null;
+    startDrawing();
+    // document.getElementById('mainBioPage').style.display = 'block'
 }
 // additional content page functions ---------------------------->
 let  additionalHandler = 0;
@@ -584,10 +591,14 @@ function scaleUp(container, scaleFactor) {
     }
 }
 startDrawing();
+// prepareTemplate('hobbies')
 // fixing layout issues on load
-window.addEventListener('load', fixLayout());
 function fixLayout() {
     const myPhotoHeight = document.getElementById('anas').clientHeight;
     const pageBioSec = document.getElementById('fullBioPage');
-    pageBioSec.style.height = `calc(${pageBioSec.clientHeight}px - ${myPhotoHeight - 36}px)`;
+    if (!capturedHeight) {
+        capturedHeight = true
+        height = pageBioSec.clientHeight;
+    } 
+    pageBioSec.style.height = `calc(${height ? height : pageBioSec.clientHeight}px - ${myPhotoHeight - 36}px)`;
 }
