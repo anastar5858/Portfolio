@@ -591,9 +591,7 @@ function scaleUp(container, scaleFactor) {
         document.getElementById('statusText').textContent = 'IDLE'
     }
 }
-// startDrawing();
-// prepareTemplate('hobbies')
-createInitialGrid({ target: {id: 'additionalBtn Hobbies--*Learning new languages'}})
+startDrawing();
 // fixing layout issues
 function fixLayout() {
     const myPhotoHeight = document.getElementById('anas').clientHeight;
