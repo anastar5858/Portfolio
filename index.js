@@ -591,8 +591,8 @@ function scaleUp(container, scaleFactor) {
     }
 }
 startDrawing();
-// prepareTemplate('hobbies')
-// fixing layout issues on load
+prepareTemplate('hobbies')
+// fixing layout issues
 function fixLayout() {
     const myPhotoHeight = document.getElementById('anas').clientHeight;
     const pageBioSec = document.getElementById('fullBioPage');
