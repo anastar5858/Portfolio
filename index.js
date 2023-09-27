@@ -604,4 +604,4 @@ function fixLayout() {
 }
 startDrawing();
 // prepareTemplate('Movies')
-createInitialGrid({target: {id: `additionalBtn Movies--*Horror`}})
+// createInitialGrid({target: {id: `additionalBtn Movies--*Horror`}})
