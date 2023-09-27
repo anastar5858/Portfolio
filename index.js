@@ -449,6 +449,7 @@ function shrinkDiv(content, width, height, folderIcon, scaleCalc, targetScale, r
 }
 // archive animation function 
 function archiveData(content, folder, dataOfTopic) {
+    content.style.position  = 'absolute';
     const folderRec = folder.getBoundingClientRect();
     const contentRec = content.getBoundingClientRect();
     // get the position of the mid point of the folder image
@@ -463,6 +464,7 @@ function archiveData(content, folder, dataOfTopic) {
     const divisor = 100
     const stepY = distanceY / divisor;
     let count = 0;
+    content.style.top = (startTop - startTop + content.offsetHeight) + stepY * count + 'px';
     function step() {
         count++;
         if (count <= divisor) {
@@ -507,6 +509,8 @@ function nextContentAnimationInit(dataOfTopic) {
     const targetScale = Math.min((factory.offsetWidth / 2) / contentWidth, (factory.offsetHeight / 2) / contentHeight);
     const scaledTop = midY;
     const scaledLeft = midX;
+    contentDiv.style.position = "static";
+    contentDiv.style.position = "absolute";
     contentDiv.style.top = scaledTop + window.scrollY + 'px';
     contentDiv.style.left = scaledLeft + window.scrollX + 'px';
     contentDiv.style.transformOrigin = 'top left';
