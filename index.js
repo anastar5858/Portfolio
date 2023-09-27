@@ -1,5 +1,6 @@
 // array holding the color of each circle segment and the message 
 let innerHTMLBackup;
+let animationLock = false;
 let capturedHeight = false;
 let height;
 let colorMsg = [{
@@ -181,6 +182,10 @@ class Circle {
 }
 // the function to initiate the animation process
 function animationHandler(e, circle) {
+    if (animationLock) {
+        return
+    }
+    animationLock = true;
     // canvas in 2d and mid points
     const canvas = e.target;
     const ctx = canvas.getContext('2d');
@@ -235,6 +240,7 @@ function startDrawing() {
 // topic title page function ---------------------------->
 // the function repsonsible for bringing the initial topic details
 function prepareTemplate(title) {
+    animationLock = false;
     // get the top template (the picture and h1 and back button)
     const templateTop = document.getElementById('topicPageTitleTemp');
     const allCardsCon = document.createElement('div');
@@ -344,6 +350,7 @@ function returnWheel() {
 // additional content page functions ---------------------------->
 let  additionalHandler = 0;
 function createInitialGrid(e) {
+    animationLock = false;
     // fethc the topic & the sub topic from the id
     const id = e.target.id;
     const title = id.split('additionalBtn ')[1].split('--*')[0];
@@ -384,6 +391,9 @@ async function populateAdditionalTemp(dataArray) {
 // next/prev arrow animation functions (hard level)
 // requires understanding of asynchronous calls promises frames box-model etc
 async function nextAnimate(e, dataOfTopic, operation) {
+    if (animationLock) {
+        return
+    }
     // ** step one get the folder icon
     const folderIcon = document.getElementById('folderIcon');
     // ** step two alter the div of content to be smaller thant the folder icon
@@ -421,6 +431,7 @@ function shrinkDiv(content, width, height, folderIcon, scaleCalc, targetScale, r
             })
         }
     }
+    animationLock = true;
     if (resolve === undefined) {
         document.getElementById('contentTitle').textContent = ``;
         document.getElementById('contentDesc').textContent = ``;
@@ -482,7 +493,8 @@ function archiveData(content, folder, dataOfTopic) {
     }
   requestAnimationFrame(step);
 }
-function nextContentAnimationInit(dataOfTopic) {
+async function nextContentAnimationInit(dataOfTopic) {
+    return new Promise((resolve) => {
     // step one get the factory image location
     document.getElementById('statusText').textContent = 'Manufacturing'
     const factory = document.getElementById('factoryIcon');
@@ -535,11 +547,11 @@ function nextContentAnimationInit(dataOfTopic) {
     const divisor = 100
     const stepX = distanceX / divisor;
     let count = 0;
-    function step() {
+    function step(resolve) {
         count++;
         if (count <= divisor) {
         content.style.left = startLeft - stepX * count + 'px';
-        requestAnimationFrame(step);
+        requestAnimationFrame(() => step(resolve));
         } else {
             setTimeout(() => {
                 const startTop = contentDiv.offsetTop;
@@ -547,29 +559,32 @@ function nextContentAnimationInit(dataOfTopic) {
                 const divisor = 100
                 const stepY = distanceY / divisor;
                 let count = 0;
-                function step() {
+                function step(resolve) {
                     count++;
                     if (count <= divisor) {
                     contentDiv.style.top = startTop + stepY * count + 'px';
-                    requestAnimationFrame(step);
+                    requestAnimationFrame(() => step(resolve));
                     } else {
                         // scale it up and done
-                        requestAnimationFrame(() => scaleUp(contentDiv, 0.3))
+                        requestAnimationFrame(() => scaleUp(contentDiv, 0.3, resolve))
                     }
                 }
-              requestAnimationFrame(step);
+              requestAnimationFrame(() => step(resolve));
             }, 1000 * 1)
         }
     }
-    requestAnimationFrame(step) ;
+    requestAnimationFrame(() => step(resolve)) ;
+    })
 }
-function scaleUp(container, scaleFactor) {
+function scaleUp(container, scaleFactor, resolve) {
     if (scaleFactor < 1) {
         container.style.transform = `scale(${scaleFactor})`
         scaleFactor+= 0.01;
-        requestAnimationFrame(() => scaleUp(container, scaleFactor))
+        requestAnimationFrame(() => scaleUp(container, scaleFactor, resolve))
     } else {
+        animationLock = false;
         document.getElementById('statusText').textContent = 'IDLE'
+        resolve(true);
     }
 }
 // fixing layout issues
@@ -582,5 +597,4 @@ function fixLayout() {
     } 
     pageBioSec.style.height = `calc(${height ? height : pageBioSec.offsetHeight}px - ${myPhotoHeight - 36}px)`;
 }
-// startDrawing();
-createInitialGrid({target: {id: `additionalBtn Hobbies--*Learning new languages`}})
+startDrawing();
