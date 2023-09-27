@@ -451,13 +451,12 @@ function shrinkDiv(content, width, height, folderIcon, scaleCalc, targetScale, r
 function archiveData(content, folder, dataOfTopic) {
     const folderRec = folder.getBoundingClientRect();
     const contentRec = content.getBoundingClientRect();
-    content.style.position = 'absolute';
     // get the position of the mid point of the folder image
     const imgHeight = folderRec.height;
-    const imgTop = folderRec.top;
+    const imgTop = folderRec.top + window.scrollY;
     const midpointY = imgTop + imgHeight / 2;
     // bring the div to the midpoint
-    const startTop = contentRec.top;
+    const startTop = contentRec.top + window.scrollY;
     const distanceY = midpointY - startTop - contentRec.height / 2;
     // the bigger the divisor the slower the animation
     // need to adjust count as well
@@ -508,7 +507,6 @@ function nextContentAnimationInit(dataOfTopic) {
     const targetScale = Math.min((factory.offsetWidth / 2) / contentWidth, (factory.offsetHeight / 2) / contentHeight);
     const scaledTop = midY;
     const scaledLeft = midX;
-    contentDiv.style.position = 'absolute';
     contentDiv.style.top = scaledTop + window.scrollY + 'px';
     contentDiv.style.left = scaledLeft + window.scrollX + 'px';
     contentDiv.style.transformOrigin = 'top left';
