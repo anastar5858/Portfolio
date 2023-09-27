@@ -481,7 +481,7 @@ function archiveData(content, folder, dataOfTopic) {
     function step() {
         count++;
         if (count <= divisor) {
-        content.style.top = startTop + stepY * count + 'px';
+        content.style.top = Math.abs(startTop + stepY * count + 'px');
         requestAnimationFrame(step);
         } else {
             setTimeout(() => {
