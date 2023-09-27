@@ -421,24 +421,8 @@ function shrinkDiv(content, width, height, folderIcon, scaleCalc, targetScale, r
     if (resolve === undefined) {
         document.getElementById('contentTitle').textContent = ``;
         document.getElementById('contentDesc').textContent = ``;
-        document.getElementById('contentLine').style.dis = ''
+        document.getElementById('contentLine').style.display = 'none'
         return new Promise((resolve) => {
-            const currentWidth = content.offsetWidth;
-            const currentHeight = content.offsetHeight;
-            if (currentWidth <= width && currentHeight <= height) {
-                resolve(true);
-                return
-            }
-            if (currentWidth > width ) {
-                content.style.width = currentWidth - 1 + 'px';
-            }
-            if (currentHeight > height) {
-                content.style.height = currentHeight - 1 + 'px';
-            }
-            if (scaleCalc) {
-                targetScale = Math.min(width / content.offsetWidth, height / content.offsetHeight);
-                scaleCalc = !scaleCalc
-            }
             requestAnimationFrame(() => shrinkDiv(content, width, height, folderIcon, scaleCalc, targetScale, resolve, 1, operation,dataOfTopic));      
         })
     } else {
@@ -447,37 +431,34 @@ function shrinkDiv(content, width, height, folderIcon, scaleCalc, targetScale, r
         // the promise of only the first call initiated
         // by the await in the prevAnimate function
         // issue from using request animation frame with another await function
-            const currentWidth = content.offsetWidth;
-            const currentHeight = content.offsetHeight;
-            if ((currentWidth <= width && currentHeight <= height) && scaleCount < targetScale) {
+            if (scaleCount < targetScale) {
                 resolve(true);
                 return
-            }
-            if (currentWidth > width ) {
-                content.style.width = currentWidth - 1 + 'px';
-            }
-            if (currentHeight > height) {
-                content.style.height = currentHeight - 1 + 'px';
             }
             if (scaleCalc) {
                 targetScale = Math.min(width / content.offsetWidth, height / content.offsetHeight);
                 scaleCalc = !scaleCalc
             }
             scaleCount = scaleCount - 0.003;
-            if(scaleCount > targetScale) content.style.transform = `scale(${scaleCount})`;
+            if(scaleCount > targetScale) {
+                content.style.transformOrigin = 'top left';
+                content.style.transform = `scale(${scaleCount})`
+            };
             requestAnimationFrame(() => shrinkDiv(content, width, height, folderIcon, scaleCalc, targetScale, resolve, scaleCount, operation, dataOfTopic));            
     }
 }
 // archive animation function 
 function archiveData(content, folder, dataOfTopic) {
+    const folderRec = folder.getBoundingClientRect();
+    const contentRec = content.getBoundingClientRect();
     content.style.position = 'absolute';
     // get the position of the mid point of the folder image
-    const imgHeight = folder.offsetHeight;
-    const imgTop = folder.offsetTop;
+    const imgHeight = folderRec.height;
+    const imgTop = folderRec.top;
     const midpointY = imgTop + imgHeight / 2;
     // bring the div to the midpoint
-    const startTop = content.offsetTop;
-    const distanceY = midpointY - startTop - content.offsetHeight / 2;
+    const startTop = contentRec.top;
+    const distanceY = midpointY - startTop - contentRec.height / 2;
     // the bigger the divisor the slower the animation
     // need to adjust count as well
     const divisor = 100
@@ -588,7 +569,6 @@ function scaleUp(container, scaleFactor) {
         document.getElementById('statusText').textContent = 'IDLE'
     }
 }
-startDrawing();
 // fixing layout issues
 function fixLayout() {
     const myPhotoHeight = document.getElementById('anas').offsetHeight;
@@ -599,3 +579,5 @@ function fixLayout() {
     } 
     pageBioSec.style.height = `calc(${height ? height : pageBioSec.offsetHeight}px - ${myPhotoHeight - 36}px)`;
 }
+// startDrawing();
+createInitialGrid({target: {id: `additionalBtn Hobbies--*Learning new languages`}})
