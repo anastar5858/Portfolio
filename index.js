@@ -362,7 +362,7 @@ function createInitialGrid(e) {
     // populate the initial template;
     populateAdditionalTemp(specificDataArray);
 }
-function populateAdditionalTemp(dataArray) {
+async function populateAdditionalTemp(dataArray) {
     // initialise with first data point
     const initialPoint = dataArray[additionalHandler];
     const template = document.getElementById('animationGridTemp');
@@ -374,6 +374,9 @@ function populateAdditionalTemp(dataArray) {
     clone.getElementById('contentDesc').textContent = `${subLabel}: ${initialPoint[subLabel]}`;
     // add clone to body
     document.getElementById('mainBioPage').appendChild(clone)
+    document.getElementById('animationGrid').removeChild(content)
+    // next content should be with the next data point
+    await nextContentAnimationInit(dataArray)
     // add the event for the arrows
     document.getElementById('prevArrow').addEventListener('click', (e) => nextAnimate(e, dataArray, 'prev'));
     document.getElementById('nextArrow').addEventListener('click', (e) => nextAnimate(e, dataArray, 'next'));
@@ -464,7 +467,6 @@ function archiveData(content, folder, dataOfTopic) {
     const divisor = 100
     const stepY = distanceY / divisor;
     let count = 0;
-    content.style.top = (startTop - startTop + content.offsetHeight) + stepY * count + 'px';
     function step() {
         count++;
         if (count <= divisor) {
@@ -509,8 +511,7 @@ function nextContentAnimationInit(dataOfTopic) {
     const targetScale = Math.min((factory.offsetWidth / 2) / contentWidth, (factory.offsetHeight / 2) / contentHeight);
     const scaledTop = midY;
     const scaledLeft = midX;
-    contentDiv.style.position = "static";
-    contentDiv.style.position = "absolute";
+    contentDiv.style.position = 'absolute'
     contentDiv.style.top = scaledTop + window.scrollY + 'px';
     contentDiv.style.left = scaledLeft + window.scrollX + 'px';
     contentDiv.style.transformOrigin = 'top left';
