@@ -230,6 +230,7 @@ li > * {
   }
   /* grid */
   #animationGrid {
+    background-color: hsl(49, 100%, 96%);
     display: grid;
     height: 100vh;
     grid-template-columns: 33.33vw 33.33vw 33.33vw;
@@ -243,6 +244,30 @@ li > * {
   }
   #statusDots {
     display: block;
+  }
+  @keyframes move {
+    0% {
+        transform: translate(0);
+    }
+    100% {
+        transform: translate(5vw);
+    }
+  }
+  @keyframes rotation1 {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(-40deg);
+    }
+  }
+  @keyframes rotation2 {
+    from {
+      transform: rotate(-40deg);
+    }
+    to {
+      transform: rotate(0);
+    }
   }
 /* >>>>>>>>>>>>>>>>>>>>> breakpoints start here >>>>>>>>>>>>>>>>>> */
 @media only screen and  (min-width: 760px) {
@@ -264,6 +289,9 @@ li > * {
   }
   .topicCardContainer {
     gap: 2rem;
+  }
+  #content {
+    max-width: 20%;
   }
 }
 @media only screen and (min-width: 1100px) {

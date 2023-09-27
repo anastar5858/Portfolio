@@ -463,6 +463,7 @@ function shrinkDiv(content, width, height, folderIcon, scaleCalc, targetScale, r
 }
 // archive animation function 
 function archiveData(content, folder, dataOfTopic) {
+    document.getElementById('folderIcon').style.animation = 'rotation1 2s 1 forwards'
     content.style.position  = 'absolute';
     const folderRec = folder.getBoundingClientRect();
     const contentRec = content.getBoundingClientRect();
@@ -485,6 +486,7 @@ function archiveData(content, folder, dataOfTopic) {
         requestAnimationFrame(step);
         } else {
             setTimeout(() => {
+                document.getElementById('folderIcon').style.animation = 'rotation2 2s 1 forwards'
                 document.getElementById('animationGrid').removeChild(content)
                 // next content should be with the next data point
                 nextContentAnimationInit(dataOfTopic)
@@ -497,7 +499,8 @@ async function nextContentAnimationInit(dataOfTopic) {
     window.scrollTo({top: 0, behavior: "smooth"});
     return new Promise((resolve) => {
     // step one get the factory image location
-    document.getElementById('statusText').textContent = 'Manufacturing'
+    document.getElementById('statusText').textContent = 'Manufacturing';
+    document.getElementById('statusDots').style.animation = 'move 3s infinite';
     const factory = document.getElementById('factoryIcon');
     const factoryRec = factory.getBoundingClientRect();
     const factoryTopEdge = factoryRec.top;
@@ -537,12 +540,12 @@ async function nextContentAnimationInit(dataOfTopic) {
     const gridTop = gridRect.top + window.scrollY;
     // remember 3 is automatic
     const gridSegmentWidth = grid.offsetWidth / 3;
-    const midCellX = (gridLeft + (gridSegmentWidth * 2) / 2) + 10;
+    const midCellX = (gridLeft + (gridSegmentWidth * 2) / 2) + 30;
     const startLeft = contentDiv.offsetLeft;
     const distanceX = midCellX;
     // trial for mid cell point
     const gridSegmentHeight = grid.offsetHeight / 3;
-    const midCellY = (gridTop + (gridSegmentHeight) / 2 );
+    const midCellY = (gridTop + (gridSegmentHeight) / 2 ) - 50;
     // the bigger the divisor the slower the animation
     // need to adjust count as well
     const divisor = 100
@@ -585,6 +588,7 @@ function scaleUp(container, scaleFactor, resolve) {
     } else {
         animationLock = false;
         document.getElementById('statusText').textContent = 'IDLE'
+        document.getElementById('statusDots').style.animation = '';
         resolve(true);
     }
 }
@@ -599,3 +603,5 @@ function fixLayout() {
     pageBioSec.style.height = `calc(${height ? height : pageBioSec.offsetHeight}px - ${myPhotoHeight - 36}px)`;
 }
 startDrawing();
+// prepareTemplate('Movies')
+createInitialGrid({target: {id: `additionalBtn Movies--*Horror`}})
