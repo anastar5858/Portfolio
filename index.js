@@ -481,7 +481,7 @@ function archiveData(content, folder, dataOfTopic) {
     function step() {
         count++;
         if (count <= divisor) {
-        content.style.top = Math.abs(startTop + stepY * count + 'px');
+        content.style.top = startTop + stepY * count + 'px';
         requestAnimationFrame(step);
         } else {
             setTimeout(() => {
@@ -494,6 +494,7 @@ function archiveData(content, folder, dataOfTopic) {
   requestAnimationFrame(step);
 }
 async function nextContentAnimationInit(dataOfTopic) {
+    window.scrollTo({top: 0, behavior: "smooth"});
     return new Promise((resolve) => {
     // step one get the factory image location
     document.getElementById('statusText').textContent = 'Manufacturing'
@@ -523,7 +524,7 @@ async function nextContentAnimationInit(dataOfTopic) {
     const targetScale = Math.min((factory.offsetWidth / 2) / contentWidth, (factory.offsetHeight / 2) / contentHeight);
     const scaledTop = midY;
     const scaledLeft = midX;
-    contentDiv.style.position = 'absolute'
+    contentDiv.style.position = 'absolute';
     contentDiv.style.top = scaledTop + window.scrollY + 'px';
     contentDiv.style.left = scaledLeft + window.scrollX + 'px';
     contentDiv.style.transformOrigin = 'top left';
@@ -533,7 +534,7 @@ async function nextContentAnimationInit(dataOfTopic) {
     // get the position relative to the document
     const gridRect = grid.getBoundingClientRect();
     const gridLeft = gridRect.left;
-    const gridTop = gridRect.top
+    const gridTop = gridRect.top + window.scrollY;
     // remember 3 is automatic
     const gridSegmentWidth = grid.offsetWidth / 3;
     const midCellX = (gridLeft + (gridSegmentWidth * 2) / 2) + 10;
@@ -555,7 +556,7 @@ async function nextContentAnimationInit(dataOfTopic) {
         } else {
             setTimeout(() => {
                 const startTop = contentDiv.offsetTop;
-                const distanceY = midCellY + window.scrollY ;
+                const distanceY = midCellY;
                 const divisor = 100
                 const stepY = distanceY / divisor;
                 let count = 0;
