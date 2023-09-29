@@ -36,6 +36,7 @@ blockquote {
     justify-content: space-between;
 }
 #logo {
+    text-decoration: none;
     display: flex;
     background: linear-gradient(to bottom, hsl(49, 100%, 50%) 20%, hsl(49, 100%, 100%));
 }
