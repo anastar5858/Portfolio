@@ -22,7 +22,7 @@ button {
 blockquote {
     margin-left: 0;
 }
-.spinnerHr {
+.spinnerHr, #contentLine {
     margin-left: 0;
     width: 25ex;
     height: 0.7ex;
@@ -235,6 +235,12 @@ li > * {
     cursor: pointer;
     z-index: 1;
     grid-area: next;
+  }
+  #arrowPrev:hover {
+    transform: scale(0.8);
+  }
+  #arrowNext:hover {
+    transform: scale(0.8);
   }
   #midBottom {
     grid-area: disposal;
