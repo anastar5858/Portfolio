@@ -607,6 +607,6 @@ function fixLayout() {
     } 
     pageBioSec.style.height = `calc(${height ? height : pageBioSec.offsetHeight}px - ${myPhotoHeight - 36}px)`;
 }
-// startDrawing();
+startDrawing();
 // prepareTemplate('Movies')
-createInitialGrid({target: {id: `additionalBtn Movies--*Horror`}})
+// createInitialGrid({target: {id: `additionalBtn Movies--*Horror`}})
