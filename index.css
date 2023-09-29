@@ -280,6 +280,8 @@ li > * {
     p, strong, a, li, button{
         font-family: var(--fontFamily);
         font-weight: var(--weight);
+        font-size: medium;
+
     }
     #mainNav {
         width: 98%;
