@@ -27,9 +27,13 @@ function prepareProjectsCards() {
         clone.getElementById('projectLink').target = '_blank';
         // alternate pic and desc on desktops only
         if (!alternate && windowWidth < 760) {
+            clone.getElementById(`projects${project.name}`).style.background = 'url(../images/Background/backgroundSkill1.webp)';
+            clone.getElementById(`projects${project.name}`).style.backgroundSize = 'cover'; 
+            clone.getElementById(`projects${project.name}`).style.backgroundPosition = '0 0';
+            clone.getElementById('projectLink').style.color = 'white';
             alternate = !alternate
         } else if (alternate && windowWidth < 760) {
-            clone.getElementById(`projects${project.name}`).style.background = 'linear-gradient(to bottom, hsl(49, 100%, 60%) 70%, hsl(49, 100%, 80%))'
+            clone.getElementById(`projects${project.name}`).style.color = 'black'
             alternate = !alternate
 
         }
@@ -37,13 +41,17 @@ function prepareProjectsCards() {
             const imageAndDescSec = clone.getElementById('imageAndDesc')
             imageAndDescSec.style.gap = '1rem';
             if (!alternate) {
+                clone.getElementById(`projects${project.name}`).style.background = 'url(../images/Background/backgroundSkill1.webp)';
+                clone.getElementById(`projects${project.name}`).style.backgroundSize = 'cover';
+                clone.getElementById(`projects${project.name}`).style.backgroundPosition = '50% 50%';
+                clone.getElementById('projectLink').style.color = 'white';
                 imageAndDescSec.style.flexDirection = 'row';
                 imageAndDescSec.style.marginLeft = '2rem';
                 alternate = !alternate
             } else {
+                clone.getElementById(`projects${project.name}`).style.color = 'black'
                 imageAndDescSec.style.flexDirection = 'row-reverse';
                 imageAndDescSec.style.marginRight = '2rem';
-                clone.getElementById(`projects${project.name}`).style.background = 'linear-gradient(to bottom, hsl(49, 100%, 60%) 70%, hsl(49, 100%, 80%))'
                 alternate = !alternate
             }
         }

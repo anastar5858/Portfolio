@@ -61,6 +61,8 @@ blockquote {
     height: 2rem;
 }
 #fullBioPage {
+  color: white;
+    background: url(images/Background/backgroundTry.webp);
     padding: 1rem;
     background-color: hsl(49, 100%, 96%);
 }
@@ -131,7 +133,7 @@ li > * {
 #topicOverlay {
     position: absolute;
     width: 99%;
-    height: 50%;
+    height: calc(50% + 5rem);
     top: 0;
     left: 0;
     opacity: 40%;
@@ -225,10 +227,12 @@ li > * {
     height: 100px;
   }
   #arrowPrev {
+    cursor: pointer;
     z-index: 1;
     grid-area: prev;
   }
   #arrowNext {
+    cursor: pointer;
     z-index: 1;
     grid-area: next;
   }

@@ -5,6 +5,8 @@ body {
     overflow-x: hidden;
 }
 [id^="projects"] {
+    color: white;
+    position: relative;
     padding-bottom: 1rem;
     text-align: center;
     margin: auto;
@@ -13,7 +15,7 @@ body {
     margin-bottom: 1rem;
     display: flex;
     flex-direction: column;
-    background: linear-gradient(to bottom, hsl(49, 100%, 90%) 70%, hsl(49, 100%, 80%));
+    background: linear-gradient(to bottom, hsl(49, 100%, 70%) 70%, hsl(49, 100%, 80%));
     border-radius: 1rem;
     align-items: center;
 }
@@ -25,6 +27,10 @@ body {
 }
 #descPara {
     max-width: 100%;
+}
+#projectPic {
+    box-shadow: 0.2rem 0.2rem 1rem 0.5rem gold;
+    border-radius: 100%;
 }
 #link {
     word-break: break-all;
