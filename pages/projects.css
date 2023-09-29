@@ -13,10 +13,8 @@ body {
     margin-bottom: 1rem;
     display: flex;
     flex-direction: column;
-    background: linear-gradient(to bottom, hsl(49, 100%, 90%) 70%, hsl(49, 100%, 92%));
+    background: linear-gradient(to bottom, hsl(49, 100%, 90%) 70%, hsl(49, 100%, 80%));
     border-radius: 1rem;
-    box-shadow: 0.3rem 0.3rem 0.5rem hsl(49, 100%, 0%);
-    /* hsl(49, 100%, 94%) */
     align-items: center;
 }
 #imageAndDesc {
