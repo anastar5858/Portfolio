@@ -182,6 +182,9 @@ class Circle {
 }
 // the function to initiate the animation process
 function animationHandler(e, circle) {
+    if (e.type === 'keyup') {
+        if (e.key !== 'Enter') return
+    }
     if (animationLock) {
         return
     }
@@ -196,6 +199,11 @@ function animationHandler(e, circle) {
     // the event was executed relative to the canvas
     const mouseX = e.offsetX;
     const mouseY = e.offsetY;
+    if (e.key === 'Enter') {
+        const stoppingAngle = Math.floor(Math.random() * 320);
+        requestAnimationFrame(() => circle.drawSpinner(ctx, 0, stoppingAngle, true, canvas.width, canvas.height, circle))
+        return 
+    }
     // if it is in the right position start animating
     if ((mouseX > canvasHCenter - 20 && mouseX < canvasHCenter + 20) && (mouseY > canvasVCenter - 20 && mouseY < canvasVCenter + 20)) {
         const stoppingAngle = Math.floor(Math.random() * 320);
@@ -224,6 +232,7 @@ function startDrawing() {
     circle.drawSpinner(ctx)
     // add the click event listener to start the animation based on the logic
     canvas.addEventListener('click', (e) => animationHandler(e, circle))
+    canvas.addEventListener('keyup', (e) => animationHandler(e, circle))
     // grab the redraw button and add the click event to redraw the circle upon user request
     const redrawBtn = document.getElementById('redrawCircle');
     redrawBtn.addEventListener('click', (e) => redrawDefault(ctx, circle, canvas.width, canvas.height))

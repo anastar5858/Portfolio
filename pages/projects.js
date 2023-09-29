@@ -66,6 +66,7 @@ function prepareProjectNav(projects) {
         li.id = `.projects${project.name}`;
         li.tabIndex = '0';
         li.addEventListener('click', scrollToProject);
+        li.addEventListener('keyup', scrollToProject);
         document.getElementById('projectNav').appendChild(li)
     })
 }
@@ -73,6 +74,9 @@ let ended = false;
 let prev;
 let capturedDirection;
 function scrollToProject(e) {
+    if (e.type === 'keyup') {
+        if (e.key !== 'Enter') return
+    }
     const projectId = e.target.id.split('.')[1];
     const projectElement = document.getElementById(projectId);
     const projectElementTop = projectElement.getBoundingClientRect().top + window.scrollY;

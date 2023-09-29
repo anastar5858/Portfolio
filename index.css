@@ -145,6 +145,7 @@ li > * {
     font-size: 3rem;
 }
 #backToWheel {
+    cursor: pointer;
     position: absolute;
     color: blue;
     text-decoration: underline;
@@ -152,6 +153,12 @@ li > * {
     left: 45%;
     font-size: larger;
 } 
+#backToWheel:hover {
+  transform: scale(1.1);
+}
+#backToWheel:focus {
+  transform: scale(1.1);
+}
 /* topic card css */
 #fullCard {
     width: 100%;
@@ -182,6 +189,11 @@ li > * {
     opacity: 85%;
     background-color: gold;
     z-index: 2;
+}
+[id^="additionalBtn"]:focus {
+  opacity: 85%;
+  background-color: gold;
+  z-index: 2;
 }
 #additionalHr {
     width: 3%;

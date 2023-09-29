@@ -72,6 +72,9 @@ body {
     border: 0.3rem solid black;
     border-radius: 100%;
 }
+#projectNav > li:focus {
+    transform: scale(1.2);
+}
 @keyframes move {
     0% {
         transform: translate(-150%);
