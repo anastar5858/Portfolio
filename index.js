@@ -607,6 +607,16 @@ function fixLayout() {
     } 
     pageBioSec.style.height = `calc(${height ? height : pageBioSec.offsetHeight}px - ${myPhotoHeight - 36}px)`;
 }
+// check if hacker image is loaded then add mine
+window.addEventListener("load", checkImageLoad)
+function checkImageLoad() {
+    const image = document.getElementById('hackMask');
+    if (image.complete && image.naturalHeight !== 0) {
+        document.getElementById('anas').src = './images/photo.png'
+    } else {
+        checkImageLoad();
+    }
+}
 startDrawing();
 // prepareTemplate('Movies')
 // createInitialGrid({target: {id: `additionalBtn Movies--*Horror`}})

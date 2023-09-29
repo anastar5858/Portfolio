@@ -51,6 +51,17 @@ body {
 #projectLink:hover {
     transform: scale(1.1);
 }
+/* projects navigation  */
+#projectNav {
+    position: fixed;
+}
+#projectNav > li {
+    width: fit-content;
+    margin-bottom: 0.5rem;
+    list-style: none;
+    border: 0.3rem solid black;
+    border-radius: 100%;
+}
 @keyframes move {
     0% {
         transform: translate(-150%);
