@@ -4,6 +4,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projects Page</title>
     <link rel="stylesheet" href="../index.css">
+    <link rel="stylesheet" href="projects.css">
+    <script src="../data/projects.js"></script>
+    <script src="projects.js" defer></script>
 </head>
 <body>
      <!-- new HTML with semantics -->
@@ -22,6 +25,31 @@
             </div>
         </nav>
     </header>
+    <div id="fixPosition"></div>
+    <main id="mainProjects">
+    <template id="projectCard">
+        <section id="projects">
+            <section id="title">
+                <h3>Name: </h3>
+            </section>
+            <section id="imageAndDesc">
+                <img id="projectPic" width="100px" height="100px" src="../images/Projects/Web Demo.jpg">
+                <p id="descPara"></p>
+            </section>
+            <section class="skillsGain">
+            <ul>
+                <strong>Skills Gained:</strong>
+                <div id="skillsItem">
+                </div>
+            </ul>
+            </section>
+            <section id="link">
+                <strong>View Project On:</strong>
+                <a id="projectLink" href="#"></a>
+            </section>
+        </section>
+    </template>
+    </main>
     <footer>
         <ul>
             <strong>Contact:</strong>

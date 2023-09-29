@@ -1,0 +1,61 @@
+#projectCard {
+    display: none;
+}
+body {
+    overflow-x: hidden;
+}
+[id^="projects"] {
+    padding-bottom: 1rem;
+    text-align: center;
+    margin: auto;
+    width: 70vw;
+    height: fit-content;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(to bottom, hsl(49, 100%, 90%) 70%, hsl(49, 100%, 92%));
+    border-radius: 1rem;
+    box-shadow: 0.3rem 0.3rem 0.5rem hsl(49, 100%, 0%);
+    /* hsl(49, 100%, 94%) */
+    align-items: center;
+}
+#imageAndDesc {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+#descPara {
+    max-width: 100%;
+}
+#link {
+    word-break: break-all;
+    display: flex;
+    flex-direction: column;
+}
+.skillsGain {
+    padding: 0;
+    width: 100%;
+    overflow: hidden;
+}
+#skillsItem {
+    font-weight: bolder;
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+    animation: move 40s infinite;
+}
+#projectLink {
+    text-decoration: none;
+}
+#projectLink:hover {
+    transform: scale(1.1);
+}
+@keyframes move {
+    0% {
+        transform: translate(-150%);
+    }
+    100% {
+        transform: translate(100%);
+    }
+  }

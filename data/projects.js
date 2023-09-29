@@ -1,7 +1,7 @@
 const projects = [
     {
         name: 'Furry Friends',
-        img: './images/Projects/Furry Friends.jpg',
+        img: '../images/Projects/Furry Friends.jpg',
         desc: `The first project during my training with the company Kreativstorm. The essence
         was gaining industry skills by working in a team to adhere to client specs, in order
         to develop the website design as requested.`,
@@ -10,7 +10,7 @@ const projects = [
     },
     {
         name: 'Rock, Paper, Scissors',
-        img: './images/Projects/Rock Papers Scissors.png',
+        img: '../images/Projects/Rock Papers Scissors.png',
         desc: `The second project during my training with the company Kreativstorm. The challenge behind
         this section of the training was learning JavaScript from a different perspective, to build 
         a functionality considering Front-End practices without any other language except the HTML boilerplate.
@@ -21,7 +21,7 @@ const projects = [
     },
     {
         name: 'Animation Calculator',
-        img: './images/Projects/Calculator.jpg',
+        img: '../images/Projects/Calculator.jpg',
         desc: `The third project during my training with the company Kreativstorm. The last team project held, 
         combining the web development triplets (CSS, Javascript & HTML), in order to build a simple calculator.
         Animations has been introduced to make this calculator fun for children usage, as well as keyboard 
@@ -31,7 +31,7 @@ const projects = [
     },
     {
         name: 'Services For People',
-        img: './images/Projects/Services for people.jpg',
+        img: '../images/Projects/Services for people.jpg',
         desc: `The first hand on experience in a full-stack development team environment during university.
         The task consisted of building a platform for linking charities/donors with people in need 
         (Medicine, Food etc). I had my first interraction with the concept of API's, unit, integration, and 
@@ -41,7 +41,7 @@ const projects = [
     },
     {
         name: 'Small & Medium Sized Enterprises Hub',
-        img: './images/Projects/SME.jpg',
+        img: '../images/Projects/SME.jpg',
         desc: `A project handed by a client during university, which introduced the idea of building a dedicated platform
         for linking healthcare companies with opportunities providers based on their various needs 
         (could be funds, equipments, staff shortage etc.). In this attemp a natrual language project
@@ -52,7 +52,7 @@ const projects = [
     },
     {
         name: 'Website Demonstarion Tool',
-        img: './images/Projects/Web Demo.jpg',
+        img: '../images/Projects/Web Demo.jpg',
         desc: `A simple university project to demonstrate the idea of a tool applicable to all websites with 
         a focus on React.js applications, that provides developers to construct interractive 
         demonstrations of their features by utilizing DOM events, without 
@@ -62,7 +62,7 @@ const projects = [
     },
     {
         name: 'Universities Administration Bot',
-        img: './images/Projects/Admin Bot.jpg',
+        img: '../images/Projects/Admin Bot.jpg',
         desc: `My final year project, which was building a Discord Bot that is able to automatically
         register students, forward them to course related channels, by analysing the university 
         students records without the need of human administrations. Web crawling was used to extract
