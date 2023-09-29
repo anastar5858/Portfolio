@@ -387,10 +387,15 @@ async function populateAdditionalTemp(dataArray) {
     // add the event for the arrows
     document.getElementById('prevArrow').addEventListener('click', (e) => nextAnimate(e, dataArray, 'prev'));
     document.getElementById('nextArrow').addEventListener('click', (e) => nextAnimate(e, dataArray, 'next'));
+    document.getElementById('prevArrow').addEventListener('keyup', (e) => nextAnimate(e, dataArray, 'prev'));
+    document.getElementById('nextArrow').addEventListener('keyup', (e) => nextAnimate(e, dataArray, 'next'));
 }
 // next/prev arrow animation functions (hard level)
 // requires understanding of asynchronous calls promises frames box-model etc
 async function nextAnimate(e, dataOfTopic, operation) {
+    if (e.type === 'keyup') {
+        if (e.key !== 'Enter') return
+    }
     if (animationLock) {
         return
     }
@@ -602,6 +607,6 @@ function fixLayout() {
     } 
     pageBioSec.style.height = `calc(${height ? height : pageBioSec.offsetHeight}px - ${myPhotoHeight - 36}px)`;
 }
-startDrawing();
+// startDrawing();
 // prepareTemplate('Movies')
-// createInitialGrid({target: {id: `additionalBtn Movies--*Horror`}})
+createInitialGrid({target: {id: `additionalBtn Movies--*Horror`}})
