@@ -34,7 +34,6 @@ function prepareProjectsCards() {
 
         }
         if (windowWidth >= 760) {
-            console.log('desktop', alternate)
             const imageAndDescSec = clone.getElementById('imageAndDesc')
             imageAndDescSec.style.gap = '1rem';
             if (!alternate) {
@@ -74,7 +73,6 @@ function scrollToProject(e) {
     // we are in the view
     const currentWindow = Math.floor(window.scrollY)
     const targetTopWithOffset = Math.floor(projectElementTop-10);
-    // console.log('wow', currentWindow)
     if (currentWindow === targetTopWithOffset || currentWindow + 1 === targetTopWithOffset || currentWindow - 1 === targetTopWithOffset) {
         return
     }
@@ -97,7 +95,6 @@ window.addEventListener('scroll', (e) => {
         else capturedDirection = 'down';
     }
     if (current === scrollTarget || current - 1 === scrollTarget) {
-        console.log('last',current, scrollTarget)
         scrollInitiatedByCode = false;
         scrollTarget = null; 
         ended = true
