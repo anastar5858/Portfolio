@@ -5,7 +5,7 @@ const hobbiesData = [
     },
     {
         hobby: "Learning new languages", 
-        text: "I believe that in many situations, language barriers prevent communication with foreigners , and by learning someone's language the bridge to knowing the individual better enacts, and is the only way to communicate with natives easily. As well as the joy of learning new languages.",
+        text: "I believe that in many situations, language barriers prevent communication with foreigners, and by learning someone's language the bridge to knowing the individual better narrows. As well as the increased brain capacity resulting from learning new languages.",
     },
     {
         hobby: "Multi-disciplinary books reading", 
@@ -31,11 +31,11 @@ const moviesData = [
     },
     {
         movie: "Action", 
-        text: 'In a similar manner to thriller movies, action movies invokes adrenaline as well, in contrast to the suspense, the epic physical battles are the sole reason I love action-packed films.',
+        text: 'In a similar manner to thriller movies, action movies invokes adrenaline as well, in contrast to the suspense, the epic physical battles strategies are the sole reason I love action-packed films.',
     },
     {
         movie: "Science Fiction", 
-        text: "As mentioned in the hobbies section, I'm a seeker of continuous learning, which results in a love for science. The only way I can broaden my scientific imagination is by watching science fiction films, pretending the scenarios can be applicable to real world, which in many cases they were.",
+        text: "As mentioned in the hobbies section, I'm a seeker of continuous learning, which results in a love for science. The only way I can broaden my scientific imagination is by watching science fiction films, pretending the scenarios can be applicable to real world, which, as history proved multiple times they were.",
     },
     {
         movie: "Comedy", 

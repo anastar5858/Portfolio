@@ -627,5 +627,5 @@ function checkImageLoad() {
     }
 }
 startDrawing();
-// prepareTemplate('Movies')
+// prepareTemplate('Hobbies')
 // createInitialGrid({target: {id: `additionalBtn Movies--*Horror`}})
