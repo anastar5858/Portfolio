@@ -55,9 +55,6 @@ body {
     gap: 1rem;
     animation: move 40s infinite;
 }
-#projectLink {
-    text-decoration: none;
-}
 #projectLink:hover {
     transform: scale(1.1);
 }
@@ -75,6 +72,14 @@ body {
 }
 #projectNav > li:focus {
     transform: scale(1.2);
+}
+#projectDoc {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    color: white;
+}
+#projectDoc:hover {
+    transform: scale(1.1);
 }
 @keyframes move {
     0% {

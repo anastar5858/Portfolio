@@ -3,6 +3,7 @@ let scrollTarget;
 function prepareProjectsCards() {
     const windowWidth = window.innerWidth;
     let alternate = false;
+    let counter = 1;
     projects.forEach((project) => {
         // prepare the template
         const template = document.getElementById('projectCard');
@@ -25,15 +26,21 @@ function prepareProjectsCards() {
         clone.getElementById('projectLink').textContent = project.link;
         clone.getElementById('projectLink').href = project.link;
         clone.getElementById('projectLink').target = '_blank';
+        // download doc link
+        clone.getElementById('projectDoc').href = `../Docs/Project ${counter}.docx`
+        counter++;
         // alternate pic and desc on desktops only
         if (!alternate && windowWidth < 760) {
             clone.getElementById(`projects${project.name}`).style.background = 'url(../images/Background/backgroundSkill1.webp)';
             clone.getElementById(`projects${project.name}`).style.backgroundSize = 'cover'; 
             clone.getElementById(`projects${project.name}`).style.backgroundPosition = '0 0';
             clone.getElementById('projectLink').style.color = 'white';
+            clone.getElementById('projectDoc').style.color = 'white';
             alternate = !alternate
         } else if (alternate && windowWidth < 760) {
-            clone.getElementById(`projects${project.name}`).style.color = 'black'
+            clone.getElementById(`projects${project.name}`).style.color = 'black';
+            clone.getElementById('projectLink').style.color = 'black';
+            clone.getElementById('projectDoc').style.color = 'black';
             alternate = !alternate
 
         }
@@ -45,11 +52,14 @@ function prepareProjectsCards() {
                 clone.getElementById(`projects${project.name}`).style.backgroundSize = 'cover';
                 clone.getElementById(`projects${project.name}`).style.backgroundPosition = '50% 50%';
                 clone.getElementById('projectLink').style.color = 'white';
+                clone.getElementById('projectDoc').style.color = 'white';
                 imageAndDescSec.style.flexDirection = 'row';
                 imageAndDescSec.style.marginLeft = '2rem';
                 alternate = !alternate
             } else {
-                clone.getElementById(`projects${project.name}`).style.color = 'black'
+                clone.getElementById(`projects${project.name}`).style.color = 'black';
+                clone.getElementById('projectLink').style.color = 'black';
+                clone.getElementById('projectDoc').style.color = 'black';
                 imageAndDescSec.style.flexDirection = 'row-reverse';
                 imageAndDescSec.style.marginRight = '2rem';
                 alternate = !alternate
@@ -61,6 +71,7 @@ function prepareProjectsCards() {
     prepareProjectNav(projects)
 }
 function prepareProjectNav(projects) {
+    const counter = 1;
     projects.forEach((project) => {
         const li = document.createElement('li');
         li.id = `.projects${project.name}`;
