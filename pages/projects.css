@@ -64,6 +64,7 @@ body {
 /* projects navigation  */
 #projectNav {
     position: fixed;
+    left: 5;
 }
 #projectNav > li {
     width: fit-content;

@@ -106,6 +106,7 @@ class Circle {
         }).filter(item => item !== undefined)
         // add it to removed segments and remove it drom colormsg
         const futureRemovedSegment = colorMsg[index[0]];
+        if (!futureRemovedSegment) return
         colorMsg.splice(index[0], 1) 
         removedSegments.push(futureRemovedSegment)
         // redraw the circle without the segment
