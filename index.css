@@ -259,16 +259,21 @@ li > * {
 /* ///////////////////////// additional animation page //////////////////////////////// */
 /* additional content page */
   /* grid areas */
-  #statusTopRight {
+  #factoryIcon {
     grid-area: status;
+  }
+  #contentTitleDiv {
+    grid-area: title;
   }
   #content {
     grid-area: content;
   }
   #contentImage {
+    box-shadow: 0.2rem 0.2rem 1rem 0.5rem gold;
     border-radius: 100%;
     width: 100px;
     height: 100px;
+    animation: circle 3s infinite;
   }
   #arrowPrev {
     cursor: pointer;
@@ -291,13 +296,14 @@ li > * {
   }
   /* grid */
   #animationGrid {
+    font-size:small;
     background-color: hsl(49, 100%, 96%);
     display: grid;
     height: 100vh;
     grid-template-columns: 33.33vw 33.33vw 33.33vw;
     grid-template-rows: 33.33vh 33.33vh 33.33vh;
     grid-template-areas: 
-    ". . status"
+    ". title status"
     "prev content next"
     ". disposal .";
     align-items: center;
@@ -330,8 +336,16 @@ li > * {
       transform: rotate(0);
     }
   }
+  @keyframes circle {
+      0% { clip-path: circle(60%); }
+      50% { clip-path: circle(50%); }
+      100% { clip-path: circle(60%); }
+  }
 /* >>>>>>>>>>>>>>>>>>>>> breakpoints start here >>>>>>>>>>>>>>>>>> */
 @media only screen and  (min-width: 760px) {
+  #animationGrid {
+    font-size:medium;
+  }
   p, strong, a, li, button{
       font-family: var(--fontFamily);
       font-weight: var(--weight);

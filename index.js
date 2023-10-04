@@ -458,11 +458,13 @@ function shrinkDiv(content, width, height, folderIcon, scaleCalc, targetScale, r
             })
         }
     }
+    document.getElementById('statusText').textContent = 'Preparing';
+    document.getElementById('statusDots').style.animation = 'move 3s infinite';
     animationLock = true;
     if (resolve === undefined) {
         document.getElementById('contentTitle').textContent = ``;
         document.getElementById('contentDesc').textContent = ``;
-        document.getElementById('contentLine').style.display = 'none'
+        document.getElementById('contentLine').style.visibility = 'hidden'
         return new Promise((resolve) => {
             requestAnimationFrame(() => shrinkDiv(content, width, height, folderIcon, scaleCalc, targetScale, resolve, 1, operation,dataOfTopic));      
         })
@@ -490,7 +492,7 @@ function shrinkDiv(content, width, height, folderIcon, scaleCalc, targetScale, r
 }
 // archive animation function 
 function archiveData(content, folder, dataOfTopic) {
-    document.getElementById('folderIcon').style.animation = 'rotation1 2s 1 forwards'
+    document.getElementById('statusText').textContent = 'Archiving';
     content.style.position  = 'absolute';
     const folderRec = folder.getBoundingClientRect();
     const contentRec = content.getBoundingClientRect();
@@ -527,7 +529,6 @@ async function nextContentAnimationInit(dataOfTopic) {
     return new Promise((resolve) => {
     // step one get the factory image location
     document.getElementById('statusText').textContent = 'Manufacturing';
-    document.getElementById('statusDots').style.animation = 'move 3s infinite';
     const factory = document.getElementById('factoryIcon');
     const factoryRec = factory.getBoundingClientRect();
     const factoryTopEdge = factoryRec.top;
@@ -541,7 +542,8 @@ async function nextContentAnimationInit(dataOfTopic) {
     // populate new clone with new point data
     clone.getElementById('contentImage').src = newPoint.src;
     const titleLabel = Object.keys(newPoint)[0];
-    clone.getElementById('contentTitle').textContent = `${titleLabel}: ${newPoint[titleLabel]}`;
+    document.getElementById('contentTitle').textContent = `${titleLabel}: ${newPoint[titleLabel]}`;
+    document.getElementById('contentLine').style.visibility = 'visible'
     const subLabel = Object.keys(newPoint)[1];
     clone.getElementById('contentDesc').textContent = `${subLabel}: ${newPoint[subLabel]}`;
     const contentDiv = clone.getElementById('content');
@@ -572,7 +574,7 @@ async function nextContentAnimationInit(dataOfTopic) {
     const distanceX = midCellX;
     // trial for mid cell point
     const gridSegmentHeight = grid.offsetHeight / 3;
-    const midCellY = (gridTop + (gridSegmentHeight) / 2 ) - 50;
+    const midCellY = (gridTop + (gridSegmentHeight) / 2 ) + 50;
     // the bigger the divisor the slower the animation
     // need to adjust count as well
     const divisor = 100
@@ -639,6 +641,6 @@ function checkImageLoad() {
         checkImageLoad();
     }
 }
-startDrawing();
+// startDrawing();
 // prepareTemplate('Hobbies')
-// createInitialGrid({target: {id: `additionalBtn Movies--*Horror`}})
+createInitialGrid({target: {id: `additionalBtn Movies--*Horror`}})
