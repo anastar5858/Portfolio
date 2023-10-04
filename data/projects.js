@@ -1,7 +1,7 @@
 const projects = [
     {
         name: 'Furry Friends',
-        img: '../images/Projects/Furry Friends.jpg',
+        img: '../images/Projects/FurryFriends.jpg',
         desc: `The first project during my training with the company Kreativstorm. The essence
         was gaining industry skills by working in a team to adhere to client specs, in order
         to develop the website design as requested.`,
@@ -10,7 +10,7 @@ const projects = [
     },
     {
         name: 'Rock, Paper, Scissors',
-        img: '../images/Projects/Rock Papers Scissors.png',
+        img: '../images/Projects/RockPapersScissors.png',
         desc: `The second project during my training with the company Kreativstorm. The challenge behind
         this section of the training was learning JavaScript from a different perspective, to build 
         a functionality considering Front-End practices without any other language except the HTML boilerplate.
@@ -31,7 +31,7 @@ const projects = [
     },
     {
         name: 'Services For People',
-        img: '../images/Projects/Services for people.jpg',
+        img: '../images/Projects/Servicesforpeople.jpg',
         desc: `The first hand on experience in a full-stack development team environment during university.
         The task consisted of building a platform for linking charities/donors with people in need 
         (Medicine, Food etc). I had my first interaction with the concept of API's, unit, integration, and 
@@ -52,7 +52,7 @@ const projects = [
     },
     {
         name: 'Website Demonstarion Tool',
-        img: '../images/Projects/Web Demo.jpg',
+        img: '../images/Projects/WebDemo.jpg',
         desc: `A simple university project to demonstrate the idea of a tool applicable to all websites with 
         a focus on React.js applications, that provides developers to construct interactive 
         demonstrations of their features by utilizing DOM events, without 
@@ -62,7 +62,7 @@ const projects = [
     },
     {
         name: 'Universities Administration Bot',
-        img: '../images/Projects/Admin Bot.jpg',
+        img: '../images/Projects/AdminBot.jpg',
         desc: `My final year project, which was building a Discord Bot that is able to automatically
         register students, forward them to course related channels, by analysing the university 
         students records without the need of human administrations. Web crawling was used to extract

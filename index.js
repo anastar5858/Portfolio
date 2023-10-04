@@ -276,7 +276,7 @@ function prepareTemplate(title) {
     animatedDataCards(data, allCardsCon, title)
     // create back element to nav bar
     const backLink = document.createElement('a');
-    backLink.textContent = 'Back';
+    backLink.textContent = 'Wheel';
     backLink.id = 'backToWheel';
     backLink.classList.add('navLink');
     document.getElementById('flexLinks').appendChild(backLink);

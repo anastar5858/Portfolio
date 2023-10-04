@@ -1,5 +1,7 @@
 let scrollInitiatedByCode = false;
 let scrollTarget;
+let currentlyActive;
+let currentlyActiveBackground;
 function prepareProjectsCards() {
     const windowWidth = window.innerWidth;
     let alternate = false;
@@ -70,7 +72,9 @@ function prepareProjectsCards() {
     // prepare navigation system
     prepareProjectNav(projects)
 }
+// inner project navigation
 function prepareProjectNav(projects) {
+    document.getElementById('projectNav').innerHTML = '';
     const counter = 1;
     projects.forEach((project) => {
         const li = document.createElement('li');
@@ -78,6 +82,8 @@ function prepareProjectNav(projects) {
         li.tabIndex = '0';
         li.addEventListener('click', scrollToProject);
         li.addEventListener('keyup', scrollToProject);
+        li.style.background = `url(${project.img})`
+        li.style.backgroundSize = 'cover'; 
         document.getElementById('projectNav').appendChild(li)
     })
 }
@@ -102,8 +108,16 @@ function scrollToProject(e) {
     // now color it
     const allNavLinks = document.getElementById('projectNav').childNodes;
     allNavLinks.forEach((li) => {
-        if (li.id.split('.')[1] === projectId) li.style.borderColor = 'hsl(49, 100%, 50%)';
-        else li.style.borderColor = 'black';
+        if (li === currentlyActive) {
+            li.style.background = currentlyActiveBackground;
+        }
+    })
+    allNavLinks.forEach((li) => {
+        if (li.id.split('.')[1] === projectId) {
+            currentlyActive = li;
+            currentlyActiveBackground = li.style.background;
+            li.style.background = 'hsl(49, 100%, 50%)';
+        }
     })
     window.scrollTo({
         top: projectElementTop - 10,
@@ -125,10 +139,7 @@ window.addEventListener('scroll', (e) => {
         return
     }
     if ((ended === true && scrollInitiatedByCode === false) && scrollTarget !== null) {
-        const allNavLinks = document.getElementById('projectNav').childNodes;
-        allNavLinks.forEach((li) => {
-            li.style.borderColor = 'black';
-        })
+        prepareProjectNav(projects);
         ended = false
     }
     if (scrollTarget === null) {

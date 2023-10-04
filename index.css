@@ -1,5 +1,6 @@
 body {
   margin: 0;
+  background-color: hsl(49, 100%, 96%);
 }
 @font-face {
   font-family: 'Helvetica Neue';
@@ -209,8 +210,8 @@ li > * {
 [id^="additionalBtn"] {
     height: fit-content;
     margin-top: 10%;
-    background-color: #EFF256;
-    border: 3x solid yellow;
+    background-color: hsl(49, 100%, 80%);
+    border: 3x solid gold;
     z-index: 1;
 
 }
