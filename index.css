@@ -12,7 +12,7 @@ a {
     --fontFamily: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     --weight: 600;
 }
-p, strong, a, li, button{
+p, strong, a, li, button, figcaption{
     font-family: 'Helvetica Neue';
     font-weight: var(--weight);
     font-size: small;
@@ -35,6 +35,9 @@ blockquote {
     background: linear-gradient(to bottom, hsl(49, 100%, 80%) 70%, hsl(49, 100%, 100%));
     border-radius: 0.5rem;
     border-color: hsl(49, 100%, 10%);
+}
+.spinnerBio {
+    background: linear-gradient(to bottom, #3ABDF0 70%, #1F56E4);
 }
 /* biography page css >>>>>>>>>>>>>>>>>>>>>>>>> */
 /* navigational bar (header) %% */
@@ -78,18 +81,35 @@ blockquote {
     position: relative;
 }
 #unfoldText {
-    position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  animation: scale 3s infinite;
+}
+@keyframes scale {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }  
 }
 /* picture on top of each other */
 #hackMask {
-    position: relative;
-    z-index: 1;
+  position: relative;
+  top: 0;
+  left: 0;
+  z-index: 2;
 }
 #anas {
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 0;
+    z-index: 1;
 }
 .shadow {
     /* background-color: aliceblue; */
@@ -115,7 +135,15 @@ blockquote {
 #spinningWheelSec {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Prevents horizontal stretching */
+    align-items: center;
+}
+@keyframes scaleWheel {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.5);
+  }  
 }
 /* footer section %% */
 footer {

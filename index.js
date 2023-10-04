@@ -192,6 +192,7 @@ function animationHandler(e, circle) {
     animationLock = true;
     // canvas in 2d and mid points
     const canvas = e.target;
+    canvas.style.animation = 'scaleWheel 3s 1 forwards'
     const ctx = canvas.getContext('2d');
     const canvasHCenter = canvas.width/2;
     const canvasVCenter = canvas.height/2
@@ -312,6 +313,7 @@ const maskImage = document.getElementById('hackMask');
 let opacity = 1;
 let requestId;
 function decreaseOpacity() {
+  document.getElementById('unfoldText').style.visibility = 'hidden';
   opacity -= 0.01;
   if (opacity < 0) {
     opacity = 0;
@@ -322,6 +324,7 @@ function decreaseOpacity() {
   }
 }
 function increaseOpacity() {
+  document.getElementById('unfoldText').style.visibility = 'visible';
   opacity += 0.01;
   if (opacity > 1) {
     opacity = 1;
@@ -355,6 +358,8 @@ function returnWheel() {
     // bring the wheel home component back
     document.getElementById('mainBioPage').innerHTML = innerHTMLBackup;
     innerHTMLBackup = null;
+    const canvas = document.getElementById('spinningWheel');
+    canvas.style.animation = ''
     startDrawing();
 }
 // additional content page functions ---------------------------->
