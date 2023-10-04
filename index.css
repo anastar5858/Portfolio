@@ -296,7 +296,6 @@ li > * {
   }
   /* grid */
   #animationGrid {
-    font-size:small;
     background-color: hsl(49, 100%, 96%);
     display: grid;
     height: 100vh;
@@ -374,5 +373,11 @@ li > * {
     #fullCard {
         width: 18%;
     }
+}
+@media only screen and (max-width: 435px) {
+  #animationGrid {
+    font-size: xx-small;
+  }
+
 }
 /* ----------------------------------------- */
