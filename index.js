@@ -494,6 +494,7 @@ function shrinkDiv(content, width, height, folderIcon, scaleCalc, targetScale, r
 // archive animation function 
 function archiveData(content, folder, dataOfTopic) {
     document.getElementById('statusText').textContent = 'Archiving';
+    document.getElementById('folderIcon').style.animation = 'rotation1 2s 1 forwards'
     content.style.position  = 'absolute';
     const folderRec = folder.getBoundingClientRect();
     const contentRec = content.getBoundingClientRect();
