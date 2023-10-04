@@ -349,6 +349,7 @@ maskImage.addEventListener('mouseout', () => {
 // function to bring the home page back and clean the topic page resources
 function returnWheel() {
     document.getElementById('backToWheel').remove();
+    animationLock = false;
     // remove other page resources
     const pageTopicTitle = document.getElementById('mainImgCon')
     const pageTopicDesc = document.getElementsByClassName('topicCardCon');
