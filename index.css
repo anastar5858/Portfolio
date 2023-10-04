@@ -50,6 +50,9 @@ blockquote {
     display: flex;
     justify-content: space-between;
 }
+#mainNav > * {
+  padding: 0 1rem 0 1rem;
+}
 #logo {
     text-decoration: none;
     display: flex;
@@ -167,18 +170,22 @@ li > * {
     width: 100%;
     height: 50%;
 }
+#mainImgCon {
+  position: relative;
+}
 #topicOverlay {
     position: absolute;
     width: 100%;
-    height: calc(50% + 5rem);
+    height: calc(100%);
     top: 0;
     left: 0;
     opacity: 40%;
 }
 #topicTitle {
     position: absolute;
-    top: 25%;
-    left: 45%;
+    top: 0%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     font-size: 3rem;
 }
 /* topic card css */
