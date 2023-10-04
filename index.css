@@ -5,6 +5,9 @@ body {
   font-family: 'Helvetica Neue';
   src: url('./assets/fonts/HelveticaNeue/HelveticaNeue67MediumCondensed/HelveticaNeue67MediumCondensed.otf');
 }
+a {
+  color: black;
+}
 :root{
     --fontFamily: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     --weight: 600;
@@ -26,7 +29,7 @@ blockquote {
     margin-left: 0;
 }
 .spinnerHr, #contentLine {
-    margin-left: 0;
+    margin-left: auto;
     width: 25ex;
     height: 0.7ex;
     background: linear-gradient(to bottom, hsl(49, 100%, 80%) 70%, hsl(49, 100%, 100%));
@@ -64,7 +67,8 @@ blockquote {
     height: 2.3rem;
 }
 #fullBioPage {
-  color: white;
+    text-align: center;
+    color: white;
     background: url(images/Background/backgroundTry.webp);
     padding: 1rem;
     background-color: hsl(49, 100%, 96%);
@@ -103,6 +107,7 @@ blockquote {
 }
 /* spinner area */
 #spinnerArea {
+    text-align: center;
     padding: 1rem;
     margin-top: 1rem;
     background-color: hsl(49, 100%, 94%);
@@ -305,24 +310,15 @@ li > * {
   }
 /* >>>>>>>>>>>>>>>>>>>>> breakpoints start here >>>>>>>>>>>>>>>>>> */
 @media only screen and  (min-width: 760px) {
-    p, strong, a, li, button{
-        font-family: var(--fontFamily);
-        font-weight: var(--weight);
-        font-size: medium;
+  p, strong, a, li, button{
+      font-family: var(--fontFamily);
+      font-weight: var(--weight);
+      font-size: medium;
 
-    }
-    #mainNav {
-        width: 100%;
-    }
-    #spinnerArea {
-        text-align: center;
-    }
-    .spinnerHr {
-        margin-left: auto;
-    }
-    #fullBioPage {
-        text-align: center;
-    }  
+  }
+  #mainNav {
+      width: 100%;
+  }
   /* ///////////////////////// topics page //////////////////////////////// */  
   #fullCard {
     width: 30%;
