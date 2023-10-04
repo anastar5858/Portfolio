@@ -274,6 +274,12 @@ function prepareTemplate(title) {
     document.getElementById('mainBioPage').appendChild(clon)
     document.getElementById('mainBioPage').appendChild(allCardsCon)
     animatedDataCards(data, allCardsCon, title)
+    // create back element to nav bar
+    const backLink = document.createElement('a');
+    backLink.textContent = 'Back';
+    backLink.id = 'backToWheel';
+    backLink.classList.add('navLink');
+    document.getElementById('flexLinks').appendChild(backLink);
     // make the home page dissapeara and add the event tp bring it back on clicking on the back button
     document.getElementById('backToWheel').addEventListener('click', () => returnWheel())
 }
@@ -342,6 +348,7 @@ maskImage.addEventListener('mouseout', () => {
 });
 // function to bring the home page back and clean the topic page resources
 function returnWheel() {
+    document.getElementById('backToWheel').remove();
     // remove other page resources
     const pageTopicTitle = document.getElementById('mainImgCon')
     const pageTopicDesc = document.getElementsByClassName('topicCardCon');

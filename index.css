@@ -60,6 +60,7 @@ blockquote {
     gap: 1rem;
 }
 .navLink {
+    cursor: pointer;
     background-color: hsl(49, 100%, 90%);
     text-decoration: none;
     color: hsl(49, 40%, 0%);
@@ -179,21 +180,6 @@ li > * {
     top: 25%;
     left: 45%;
     font-size: 3rem;
-}
-#backToWheel {
-    cursor: pointer;
-    position: absolute;
-    color: blue;
-    text-decoration: underline;
-    top: 40%;
-    left: 45%;
-    font-size: larger;
-} 
-#backToWheel:hover {
-  transform: scale(1.1);
-}
-#backToWheel:focus {
-  transform: scale(1.1);
 }
 /* topic card css */
 #fullCard {
