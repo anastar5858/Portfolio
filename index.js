@@ -643,4 +643,4 @@ function checkImageLoad() {
 }
 // startDrawing();
 // prepareTemplate('Hobbies')
-createInitialGrid({target: {id: `additionalBtn Movies--*Horror`}})
+// createInitialGrid({target: {id: `additionalBtn Movies--*Horror`}})
