@@ -87,8 +87,8 @@ blockquote {
 }
 #unfoldText {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 10%;
+  left: 15%;
   z-index: 3;
   animation: scale 3s infinite;
 }
@@ -378,6 +378,5 @@ li > * {
   #animationGrid {
     font-size: xx-small;
   }
-
 }
 /* ----------------------------------------- */

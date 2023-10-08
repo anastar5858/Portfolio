@@ -189,10 +189,8 @@ function animationHandler(e, circle) {
     if (animationLock) {
         return
     }
-    animationLock = true;
     // canvas in 2d and mid points
     const canvas = e.target;
-    canvas.style.animation = 'scaleWheel 3s 1 forwards'
     const ctx = canvas.getContext('2d');
     const canvasHCenter = canvas.width/2;
     const canvasVCenter = canvas.height/2
@@ -202,6 +200,8 @@ function animationHandler(e, circle) {
     const mouseX = e.offsetX;
     const mouseY = e.offsetY;
     if (e.key === 'Enter') {
+        animationLock = true;
+        canvas.style.animation = 'scaleWheel 3s 1 forwards';
         const stoppingAngle = Math.floor(Math.random() * 320);
         requestAnimationFrame(() => circle.drawSpinner(ctx, 0, stoppingAngle, true, canvas.width, canvas.height, circle))
         return 
@@ -209,6 +209,8 @@ function animationHandler(e, circle) {
     // if it is in the right position start animating
     if ((mouseX > canvasHCenter - 20 && mouseX < canvasHCenter + 20) && (mouseY > canvasVCenter - 20 && mouseY < canvasVCenter + 20)) {
         const stoppingAngle = Math.floor(Math.random() * 320);
+        animationLock = true;
+        canvas.style.animation = 'scaleWheel 3s 1 forwards';
         requestAnimationFrame(() => circle.drawSpinner(ctx, 0, stoppingAngle, true, canvas.width, canvas.height, circle))
     }
 }
@@ -315,36 +317,46 @@ function generateDataCards(element, allCardsCon, title) {
     requestAnimationFrame(() => generateDataCards(element, allCardsCon, title))
 }
 // functions for unfolding the mask
-const maskImage = document.getElementById('hackMask');
+let maskImage = document.getElementById('hackMask');
 let opacity = 1;
-let requestId;
+let increase = false;
+let requestIdDecrease;
+let requestIdIncrease;
 function decreaseOpacity() {
+  maskImage = document.getElementById('hackMask');
   document.getElementById('unfoldText').style.visibility = 'hidden';
   opacity -= 0.01;
+  if (increase) {
+    cancelAnimationFrame(requestIdDecrease);
+    return
+  }
   if (opacity < 0) {
     opacity = 0;
-    cancelAnimationFrame(requestId);
   } else {
+    console.log('ummmmmm', opacity, increase, maskImage)
     maskImage.style.opacity = opacity;
-    requestId = requestAnimationFrame(decreaseOpacity);
+    requestIdDecrease = requestAnimationFrame(decreaseOpacity);
   }
 }
 function increaseOpacity() {
+  maskImage = document.getElementById('hackMask');
+  increase = true;
   document.getElementById('unfoldText').style.visibility = 'visible';
   opacity += 0.01;
   if (opacity > 1) {
+    increase = false;
     opacity = 1;
-    cancelAnimationFrame(requestId);
+    cancelAnimationFrame(requestIdIncrease);
   } else {
     maskImage.style.opacity = opacity;
-    requestId = requestAnimationFrame(increaseOpacity);
+    requestIdIncrease = requestAnimationFrame(increaseOpacity);
   }
 }
 maskImage.addEventListener('mouseover', () => {
-  requestId = requestAnimationFrame(decreaseOpacity);
+  requestIdDecrease = requestAnimationFrame(decreaseOpacity);
 });
 maskImage.addEventListener('mouseout', () => {
-  requestId = requestAnimationFrame(increaseOpacity);
+  requestIdIncrease = requestAnimationFrame(increaseOpacity);
 });
 // function to bring the home page back and clean the topic page resources
 function returnWheel() {
@@ -367,8 +379,15 @@ function returnWheel() {
     document.getElementById('mainBioPage').innerHTML = innerHTMLBackup;
     innerHTMLBackup = null;
     const canvas = document.getElementById('spinningWheel');
-    canvas.style.animation = ''
+    canvas.style.animation = '';
     startDrawing();
+    const maskImage = document.getElementById('hackMask');
+    maskImage.addEventListener('mouseover', () => {
+        requestIdDecrease = requestAnimationFrame(decreaseOpacity);
+    });
+      maskImage.addEventListener('mouseout', () => {
+        requestIdIncrease = requestAnimationFrame(increaseOpacity);
+    });
 }
 // additional content page functions ---------------------------->
 let  additionalHandler = 0;
