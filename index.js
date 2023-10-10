@@ -199,15 +199,9 @@ function animationHandler(e, circle) {
     // the event was executed relative to the canvas
     const mouseX = e.offsetX;
     const mouseY = e.offsetY;
-    if (e.key === 'Enter') {
-        animationLock = true;
-        canvas.style.animation = 'scaleWheel 3s 1 forwards';
-        const stoppingAngle = Math.floor(Math.random() * 320);
-        requestAnimationFrame(() => circle.drawSpinner(ctx, 0, stoppingAngle, true, canvas.width, canvas.height, circle))
-        return 
-    }
     // if it is in the right position start animating
-    if ((mouseX > canvasHCenter - 20 && mouseX < canvasHCenter + 20) && (mouseY > canvasVCenter - 20 && mouseY < canvasVCenter + 20)) {
+    if (((mouseX > canvasHCenter - 20 && mouseX < canvasHCenter + 20) && (mouseY > canvasVCenter - 20 && mouseY < canvasVCenter + 20))
+     || e.key === 'Enter') {
         const stoppingAngle = Math.floor(Math.random() * 320);
         animationLock = true;
         canvas.style.animation = 'scaleWheel 3s 1 forwards';
@@ -457,6 +451,21 @@ async function nextAnimate(e, dataOfTopic, operation) {
         archiveData(contentDiv, folderIcon, dataOfTopic)
     }
 }
+let titleBackup = '';
+function noContent() {
+    if (document.getElementById('contentTitle').textContent!== 'No content.') {
+        titleBackup = document.getElementById('contentTitle').textContent;
+        document.getElementById('contentTitle').textContent = 'No content.';
+        setTimeout(() => {
+            document.getElementById('contentTitle').textContent = titleBackup;
+        } , 2000);
+    } else {
+        setTimeout(() => {
+            console.log('ummmmm', titleBackup)
+            document.getElementById('contentTitle').textContent = titleBackup;
+        } , 2000); 
+    }
+}
 // shrinking animation function
 function shrinkDiv(content, width, height, folderIcon, scaleCalc, targetScale, resolve, scaleCount, operation, dataOfTopic, added) {
     // do not proceed with any animation if there is no prev/next data point
@@ -465,6 +474,7 @@ function shrinkDiv(content, width, height, folderIcon, scaleCalc, targetScale, r
             additionalHandler++;
         } else {
             return new Promise((resolve, reject) => { 
+                noContent();
                 resolve(false);
             })
         }
@@ -473,7 +483,8 @@ function shrinkDiv(content, width, height, folderIcon, scaleCalc, targetScale, r
         if (additionalHandler !== 0) {
             additionalHandler--;
         } else {
-            return new Promise((resolve, reject) => { 
+            return new Promise((resolve, reject) => {
+                noContent();
                 resolve(false);
             })
         }
