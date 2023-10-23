@@ -116,6 +116,7 @@ class Circle {
         prepareTemplate(futureRemovedSegment.msg)
         // if all segments have been removed reinitialise the process
         if (colorMsg.length === 0) {
+            removeCircleState();
             colorMsg = [...removedSegments];
             removedSegments = [];
             this.drawCircle(ctx)
@@ -210,6 +211,7 @@ function animationHandler(e, circle) {
 }
 // function executed when redraw is requested
 function redrawDefault(ctx, circle, w, h) {
+    removeCircleState();
     colorMsg = [...colorMsg, ...removedSegments];
     removedSegments = [];
     ctx.clearRect(0, 0, w, h);
@@ -247,6 +249,8 @@ function startDrawing() {
 // topic title page function ---------------------------->
 // the function repsonsible for bringing the initial topic details
 function prepareTemplate(title) {
+    // save the states of the circle to local host
+    addCircleState();
     animationLock = false;
     // get the top template (the picture and h1 and back button)
     const templateTop = document.getElementById('topicPageTitleTemp');
@@ -663,14 +667,29 @@ function fixLayout() {
     } 
     pageBioSec.style.height = `calc(${height ? height : pageBioSec.offsetHeight}px - ${myPhotoHeight - 36}px)`;
 }
+// functions fo local storage
+function addCircleState() {
+    localStorage.setItem('colorMsg', JSON.stringify(colorMsg));
+    localStorage.setItem('removedSegments', JSON.stringify(removedSegments));
+}
+function removeCircleState() {
+    localStorage.removeItem('colorMsg');
+    localStorage.removeItem('removedSegments');
+}
 // check if hacker image is loaded then add mine
-window.addEventListener("load", checkImageLoad)
-function checkImageLoad() {
+window.addEventListener("load", checkImageLoadAndCircleState)
+function checkImageLoadAndCircleState() {
+    // circle state
+    if (localStorage.getItem('colorMsg')) {
+        colorMsg = JSON.parse(localStorage.getItem('colorMsg'));
+        removedSegments = JSON.parse(localStorage.getItem('removedSegments'));
+        startDrawing();
+    }
     const image = document.getElementById('hackMask');
     if (image.complete && image.naturalHeight !== 0) {
         document.getElementById('anas').src = './images/photo.png'
     } else {
-        checkImageLoad();
+        checkImageLoadAndCircleState();
     }
 }
 startDrawing();
